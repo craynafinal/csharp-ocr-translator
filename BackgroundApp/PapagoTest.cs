@@ -2,28 +2,29 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
+using System.Text.RegularExpressions;
 
 namespace BackgroundApp
 {
-    class PapagoTest
+    /// <summary>
+    /// Papago ui test for fetching translated text.
+    /// </summary>
+    public class PapagoTest
     {
-        private IWebDriver webDriver;
+        private IWebDriver _webDriver;
+        private By _translatedTextArea = By.Id("txtTarget");
+        private const int _waitTime = 20;
 
         public PapagoTest()
         {
-            this.webDriver = getWebDriver();
+            this._webDriver = createWebDriver();
         }
 
-        /// <summary>
-        /// Get webdriver instance.
-        /// </summary>
-        /// <returns>
-        /// Web driver instance.
-        /// </returns>
-        private IWebDriver getWebDriver()
+        private IWebDriver createWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("window-size=1920,1080");
+            //options.AddArgument("headless");
             IWebDriver webDriver = new ChromeDriver(options);
             return webDriver;
         }
@@ -33,9 +34,9 @@ namespace BackgroundApp
         /// </summary>
         public void Quit()
         {
-            if (webDriver != null)
+            if (_webDriver != null)
             {
-                webDriver.Quit();
+                _webDriver.Quit();
             }
         }
 
@@ -46,24 +47,43 @@ namespace BackgroundApp
         /// <param name="sourceLanguage">Source language</param>
         /// <param name="targetLanguage">Target language</param>
         /// <returns>Translated text</returns>
-        public string Translate(string text, string sourceLanguage, string targetLanguage)
+        public string Translate(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)
         {
-            webDriver.Url = "https://papago.naver.com/?sk=[SOURCE]&tk=[TARGET]&st=[TEXT]"
-                .Replace("[SOURCE]", sourceLanguage)
-                .Replace("[TARGET]", targetLanguage)
-                .Replace("[TEXT]", text);
+            _webDriver.Navigate().GoToUrl(GetUrl(RemoveIllegalCharacters(text), sourceLanguage, targetLanguage));
+            return GetTranslatedText();
+        }
 
-            WebDriverWait wait = new WebDriverWait(webDriver, new TimeSpan(0, 0, 20));
-            wait.Until(driver => driver.FindElement(By.Id("txtTarget")));
-            IWebElement webElement = webDriver.FindElement(By.Id("txtTarget"));
+        private string GetTranslatedText()
+        {
+            WebDriverWait wait = new WebDriverWait(_webDriver, new TimeSpan(0, 0, _waitTime));
+            wait.Until(driver => driver.FindElement(_translatedTextArea));
+            IWebElement webElement = _webDriver.FindElement(_translatedTextArea);
             return webElement.Text;
         }
 
-        static void Main(string[] args)
+        private string GetUrl(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)
         {
-            PapagoTest papagoTest = new PapagoTest();
-            Console.WriteLine(papagoTest.Translate("hello", "en", "ko"));
-            papagoTest.Quit();
+            string url = "https://papago.naver.com/?sk=[SOURCE]&tk=[TARGET]&st=[TEXT]"
+                .Replace("[SOURCE]", sourceLanguage.ToLanguageCode())
+                .Replace("[TARGET]", targetLanguage.ToLanguageCode())
+                .Replace("[TEXT]", text);
+
+            if (targetLanguage.Equals(LanguageCode.KOREAN))
+            {
+                url.Replace("&st", "&hn=0&");
+            }
+
+            return url;
+        }
+
+        private string RemoveIllegalCharacters(string text)
+        {
+            return new Regex("[{}]").Replace(text, "");
+        }
+
+        static void Main(String[] args)
+        {
+
         }
     }
 }

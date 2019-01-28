@@ -11,6 +11,8 @@ namespace DesktopApp
 {
     public partial class Form1 : Form
     {
+        BackgroundApp.PapagoTest papagoTest = new BackgroundApp.PapagoTest();
+
         public Form1()
         {
             InitializeComponent();
@@ -29,7 +31,6 @@ namespace DesktopApp
                 throw new Exception($"{ language.LanguageTag } is not supported in this system.");
             }
 
-
             using (MemoryStream m = new MemoryStream())
             {
                 var bitmap = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height, PixelFormat.Format32bppArgb);
@@ -41,13 +42,20 @@ namespace DesktopApp
                 var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
                 var engine = OcrEngine.TryCreateFromLanguage(language);
                 var ocrResult = await engine.RecognizeAsync(softwareBitmap).AsTask();
-                Console.WriteLine(ocrResult.Text);
+
+                //papagoTest.Translate(ocrResult.Text.Replace("{", "").Replace("}", "").Replace(",", "").Replace(";", "").Replace(":", ""), "en", "ko");
+
+
+                //TODO: url breaks because of special characters
+
+                string result = papagoTest.Translate(ocrResult.Text, BackgroundApp.LanguageCode.KOREAN, BackgroundApp.LanguageCode.ENGLISH);
+                Console.WriteLine(result);
             }
         }
 
         private async void test_file_read()
         {
-            var language = new Language("ko");
+            var language = new Language("en");
             if (!OcrEngine.IsLanguageSupported(language))
             {
                 throw new Exception($"{ language.LanguageTag } is not supported in this system.");
