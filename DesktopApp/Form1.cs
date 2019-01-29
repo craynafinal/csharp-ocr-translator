@@ -48,8 +48,11 @@ namespace DesktopApp
 
                 //TODO: url breaks because of special characters
 
+                var watch = System.Diagnostics.Stopwatch.StartNew();
                 string result = papagoTest.Translate(ocrResult.Text, BackgroundApp.LanguageCode.KOREAN, BackgroundApp.LanguageCode.ENGLISH);
-                Console.WriteLine(result);
+                watch.Stop();
+                var elapsedMs = watch.ElapsedMilliseconds;
+                Console.WriteLine(result + " " + elapsedMs);
             }
         }
 

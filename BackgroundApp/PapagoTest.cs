@@ -24,7 +24,7 @@ namespace BackgroundApp
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("window-size=1920,1080");
-            //options.AddArgument("headless");
+            options.AddArgument("headless");
             IWebDriver webDriver = new ChromeDriver(options);
             return webDriver;
         }
@@ -49,8 +49,13 @@ namespace BackgroundApp
         /// <returns>Translated text</returns>
         public string Translate(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)
         {
-            _webDriver.Navigate().GoToUrl(GetUrl(RemoveIllegalCharacters(text), sourceLanguage, targetLanguage));
-            return GetTranslatedText();
+            // TODO: if request is too big, should run this several times - 2,083 characters
+
+            _webDriver.Url = GetUrl(RemoveIllegalCharacters(text), sourceLanguage, targetLanguage);
+            //return GetTranslatedText();
+            string result = GetTranslatedText();
+            Console.WriteLine(result);
+            return result;
         }
 
         private string GetTranslatedText()
@@ -66,7 +71,7 @@ namespace BackgroundApp
             string url = "https://papago.naver.com/?sk=[SOURCE]&tk=[TARGET]&st=[TEXT]"
                 .Replace("[SOURCE]", sourceLanguage.ToLanguageCode())
                 .Replace("[TARGET]", targetLanguage.ToLanguageCode())
-                .Replace("[TEXT]", text);
+                .Replace("[TEXT]", Uri.EscapeUriString(text));
 
             if (targetLanguage.Equals(LanguageCode.KOREAN))
             {
@@ -78,7 +83,7 @@ namespace BackgroundApp
 
         private string RemoveIllegalCharacters(string text)
         {
-            return new Regex("[{}]").Replace(text, "");
+            return new Regex("[{}^]").Replace(text, "");
         }
 
         static void Main(String[] args)
