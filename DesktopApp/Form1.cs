@@ -6,9 +6,11 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Windows.Foundation;
 using Windows.Globalization;
 using Windows.Graphics.Imaging;
 using Windows.Media.Ocr;
+using Windows.UI.Xaml.Media;
 
 namespace DesktopApp
 {
@@ -16,9 +18,15 @@ namespace DesktopApp
     {
         BackgroundApp.PapagoTest papagoTest = new BackgroundApp.PapagoTest();
 
+        ~Form1()
+        {
+            //papagoTest.Dispose();
+        }
+
         public Form1()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -100,7 +108,7 @@ namespace DesktopApp
         {
             test_file_read();
         }
-
+        
         private void button3_Click(object sender, EventArgs e)
         {
             Bitmap bitmap = null;
@@ -130,103 +138,57 @@ namespace DesktopApp
 
         private void button4_Click(object sender, EventArgs e)
         {
-            // completely broken at this moment!
 
-            //instance = this;
-            InitializeComponent();
-
-            this.MouseDown += new MouseEventHandler(mouse_Click);
-            this.MouseMove += new MouseEventHandler(mouse_Move);
-
-            this.Location = SystemInformation.VirtualScreen.Location;
-            this.Size = SystemInformation.VirtualScreen.Size;
-            g = this.CreateGraphics();
         }
 
 
-        public bool LeftButtonDown = false;
-        public int RectangleHeight = new int();
-        public int RectangleWidth = new int();
-        public bool RectangleDrawn = false;
+        System.Drawing.Graphics formGraphics;
+        bool isDown = false;
+        int initialX;
+        int initialY;
 
-        public System.Drawing.Point ClickPoint = new System.Drawing.Point();
-        public System.Drawing.Point CurrentTopLeft = new System.Drawing.Point();
-        public System.Drawing.Point CurrentBottomRight = new System.Drawing.Point();
-        public System.Drawing.Point DragClickRelative = new System.Drawing.Point();
+        int areaX, areaY, areaWidth, areaHeight;
 
-        Pen EraserPen = new Pen(Color.FromArgb(255, 255, 192), 1);
-        Pen MyPen = new Pen(Color.Black, 1);
-
-        Graphics g;
-
-        private void mouse_Click(object sender, MouseEventArgs e)
+        private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
-
-            if (e.Button == MouseButtons.Left)
-            {
-                LeftButtonDown = true;
-                ClickPoint = new System.Drawing.Point(System.Windows.Forms.Control.MousePosition.X, System.Windows.Forms.Control.MousePosition.Y);
-
-                if (RectangleDrawn)
-                {
-
-                    RectangleHeight = CurrentBottomRight.Y - CurrentTopLeft.Y;
-                    RectangleWidth = CurrentBottomRight.X - CurrentTopLeft.X;
-                    DragClickRelative.X = Cursor.Position.X - CurrentTopLeft.X;
-                    DragClickRelative.Y = Cursor.Position.Y - CurrentTopLeft.Y;
-
-                }
-            }
-        }
-        
-        private void mouse_Move(object sender, MouseEventArgs e)
-        {
-            if (LeftButtonDown && !RectangleDrawn)
-            {
-                DrawSelection();
-            }
+            isDown = true;
+            initialX = e.X;
+            initialY = e.Y;
         }
 
-        private void DrawSelection()
+        private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            this.Cursor = Cursors.Arrow;
-
-            //Erase the previous rectangle
-            g.DrawRectangle(EraserPen, CurrentTopLeft.X - this.Location.X, CurrentTopLeft.Y - this.Location.Y, CurrentBottomRight.X - CurrentTopLeft.X, CurrentBottomRight.Y - CurrentTopLeft.Y);
-
-            //Calculate X Coordinates
-            if (Cursor.Position.X < ClickPoint.X)
+            if (isDown == true)
             {
+                this.Refresh();
+                Pen drwaPen = new Pen(Color.Navy, 1);
+                int width = e.X - initialX, height = e.Y - initialY;
+                //if (Math.Sign (width) == -1) width = width 
+                //Rectangle rect = new Rectangle(initialPt.X, initialPt.Y, Cursor.Position.X - initialPt.X, Cursor.Position.Y - initialPt.Y); 
 
-                CurrentTopLeft.X = Cursor.Position.X;
-                CurrentBottomRight.X = ClickPoint.X;
+                areaX = Math.Min(e.X, initialX);
+                areaY = Math.Min(e.Y, initialY);
+                areaWidth = Math.Abs(e.X - initialX);
+                areaHeight = Math.Abs(e.Y - initialY);
 
+                Rectangle rect = new Rectangle(areaX, areaY, areaWidth, areaHeight);
+
+                formGraphics = this.CreateGraphics();
+                formGraphics.DrawRectangle(drwaPen, rect);
             }
-            else
-            {
+        }
+        private void Form1_MouseUp(object sender, MouseEventArgs e)
+        {
+            isDown = false;
+            Console.WriteLine(areaX + " " + areaY + " " + areaWidth + " " + areaHeight);
+        }
 
-                CurrentTopLeft.X = ClickPoint.X;
-                CurrentBottomRight.X = Cursor.Position.X;
 
-            }
-
-            //Calculate Y Coordinates
-            if (Cursor.Position.Y < ClickPoint.Y)
-            {
-
-                CurrentTopLeft.Y = Cursor.Position.Y;
-                CurrentBottomRight.Y = ClickPoint.Y;
-
-            }
-            else
-            {
-                CurrentTopLeft.Y = ClickPoint.Y;
-                CurrentBottomRight.Y = Cursor.Position.Y;
-            }
-
-            //Draw a new rectangle
-            g.DrawRectangle(MyPen, CurrentTopLeft.X - this.Location.X, CurrentTopLeft.Y - this.Location.Y, CurrentBottomRight.X - CurrentTopLeft.X, CurrentBottomRight.Y - CurrentTopLeft.Y);
-
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseUp);
         }
     }
 }

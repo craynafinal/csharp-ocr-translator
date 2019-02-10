@@ -90,5 +90,10 @@ namespace BackgroundApp
         {
 
         }
+
+        ~PapagoTest()
+        {
+            this.Quit();
+        }
     }
 }
