@@ -26,7 +26,6 @@ namespace DesktopApp
         public Form1()
         {
             InitializeComponent();
-            this.DoubleBuffered = true;
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -138,7 +137,8 @@ namespace DesktopApp
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            var screenForm = new ScreenForm();
+            screenForm.Show();
         }
 
 
