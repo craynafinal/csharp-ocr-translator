@@ -1,6 +1,6 @@
 ﻿namespace DesktopApp
 {
-    partial class ScreenForm
+    partial class ScreenGrabber
     {
         /// <summary>
         /// Required designer variable.

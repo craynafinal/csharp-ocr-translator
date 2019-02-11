@@ -36,17 +36,17 @@ namespace DesktopApp
         private const int WM_SYSKEYDOWN = 0x0104;
         private const int WM_SYSKEYUP = 0x0105;
 
-        private readonly LLKeyboardHook _llkh;
+        private readonly LLKeyboardHook llkh;
         public List<Keys> HookedKeys = new List<Keys>();
 
-        private IntPtr _hook = IntPtr.Zero;
+        private IntPtr hook = IntPtr.Zero;
 
         public event KeyEventHandler KeyDown;
         public event KeyEventHandler KeyUp;
 
         public GlobalKeyHook()
         {
-            _llkh = new LLKeyboardHook(HookProc);
+            llkh = new LLKeyboardHook(HookProc);
         }
 
         ~GlobalKeyHook() {
@@ -56,17 +56,17 @@ namespace DesktopApp
         public void Hook()
         {
             IntPtr hInstance = LoadLibrary("User32");
-            _hook = SetWindowsHookEx(WH_KEYBOARD_LL, _llkh, hInstance, 0);
+            hook = SetWindowsHookEx(WH_KEYBOARD_LL, llkh, hInstance, 0);
         }
 
         public void Unhook()
         {
-            UnhookWindowsHookEx(_hook);
+            UnhookWindowsHookEx(hook);
         }
 
-        public int HookProc(int Code, int wParam, ref KeyHookContainer lParam)
+        public int HookProc(int code, int wParam, ref KeyHookContainer lParam)
         {
-            if (Code >= 0)
+            if (code >= 0)
             {
                 Keys key = (Keys)lParam.vkCode;
 
@@ -82,7 +82,7 @@ namespace DesktopApp
                 }
             }
 
-            return CallNextHookEx(_hook, Code, wParam, ref lParam);
+            return CallNextHookEx(hook, code, wParam, ref lParam);
         }
     }
 }
