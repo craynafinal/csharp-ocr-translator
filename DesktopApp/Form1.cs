@@ -12,20 +12,34 @@ using Windows.Graphics.Imaging;
 using Windows.Media.Ocr;
 using Windows.UI.Xaml.Media;
 
+using System.Windows.Input;
+using System.Collections.Generic;
+using Windows.UI.Xaml;
+
 namespace DesktopApp
 {
     public partial class Form1 : Form
     {
         BackgroundApp.PapagoTest papagoTest = new BackgroundApp.PapagoTest();
-
-        ~Form1()
-        {
-            //papagoTest.Dispose();
-        }
+        private GlobalKeyHook _gHook;
 
         public Form1()
         {
             InitializeComponent();
+            _gHook = new GlobalKeyHook();
+            _gHook.KeyDown += new KeyEventHandler(gHook_KeyDown);
+            foreach (Keys key in Enum.GetValues(typeof(Keys)))
+                _gHook.HookedKeys.Add(key);
+            _gHook.Hook();
+        }
+
+        public void gHook_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.X && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
+            {
+                var screenForm = new ScreenForm();
+                screenForm.Show();
+            }
         }
 
         private async void button1_Click(object sender, EventArgs e)
