@@ -35,11 +35,6 @@ namespace DesktopApp.Processors
             }
         }
 
-        private string GetRelativeFilePath()
-        {
-            return folderName + "\\" + fileName;
-        }
-
         private string GetFullFilePath()
         {
             return GetFolderPath() + "\\" + fileName;
