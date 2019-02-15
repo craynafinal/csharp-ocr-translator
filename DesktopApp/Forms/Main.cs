@@ -63,11 +63,7 @@ namespace DesktopApp
                 throw new Exception("Initialize screen focus first!");
             }
 
-            var language = new Language("en");
-            if (!OcrEngine.IsLanguageSupported(language))
-            {
-                throw new Exception($"{ language.LanguageTag } is not supported in this system.");
-            }
+            
 
             MemoryStream memoryStream = new MemoryStream();
 
@@ -88,7 +84,6 @@ namespace DesktopApp
             DesktopBitmapData bitmapData = new DesktopBitmapData();
             bitmapData.Bitmap = bitmap;
             bitmapData.Graphics = graphics;
-            bitmapData.Language = language;
             bitmapData.MemoryStream = memoryStream;
 
             return bitmapData;
@@ -96,12 +91,20 @@ namespace DesktopApp
 
         private async void TranslateBitmapText(DesktopBitmapData desktopBitmapData)
         {
+            /* need to be here? */
+            var language = new Language("en");
+            if (!OcrEngine.IsLanguageSupported(language))
+            {
+                throw new Exception($"{ language.LanguageTag } is not supported in this system.");
+            }
+
             var decoder = await BitmapDecoder.CreateAsync(desktopBitmapData.MemoryStream.AsRandomAccessStream());
             var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-            var engine = OcrEngine.TryCreateFromLanguage(desktopBitmapData.Language);
+            var engine = OcrEngine.TryCreateFromLanguage(new Language("en"));
             var ocrResult = await engine.RecognizeAsync(softwareBitmap).AsTask();
 
-            string result = papagoTest.Translate(ocrResult.Text, BackgroundApp.LanguageCode.JAPANESE, BackgroundApp.LanguageCode.KOREAN);
+            /* need to be dynamic */
+            string result = papagoTest.Translate(ocrResult.Text, LanguageCode.ENGLISH, LanguageCode.KOREAN);
             desktopBitmapData.Graphics.Flush();
 
             // TOOD: debugging purpose

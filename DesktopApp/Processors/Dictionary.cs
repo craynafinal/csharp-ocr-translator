@@ -15,7 +15,7 @@ namespace DesktopApp.Processors
         private Dictionary()
         {
             dictionary = new Dictionary<string, string>();
-            
+            dictionary.Add("Steins Gate", "슈타인즈 게이트");
         }
 
         /// <summary>
