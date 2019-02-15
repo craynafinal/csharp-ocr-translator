@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pocos\BitmapData.cs" />
+    <Compile Include="Processors\Dictionary.cs" />
     <Compile Include="Processors\Drawing.cs" />
     <Compile Include="Filters\ImageFilter.cs" />
     <Compile Include="Forms\Main.cs">

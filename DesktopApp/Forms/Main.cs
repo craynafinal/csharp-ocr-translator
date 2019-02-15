@@ -3,6 +3,7 @@ using BackgroundApp;
 using DesktopApp.Filters;
 using DesktopApp.Poco;
 using DesktopApp.Pocos;
+using DesktopApp.Processors;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -104,11 +105,11 @@ namespace DesktopApp
             var ocrResult = await engine.RecognizeAsync(softwareBitmap).AsTask();
 
             /* need to be dynamic */
-            string result = papagoTest.Translate(ocrResult.Text, LanguageCode.ENGLISH, LanguageCode.KOREAN);
+            string result = papagoTest.Translate(Dictionary.GetInstance().Apply(ocrResult.Text), LanguageCode.ENGLISH, LanguageCode.KOREAN);
             desktopBitmapData.Graphics.Flush();
 
             // TOOD: debugging purpose
-            Console.WriteLine(result);
+            Console.WriteLine(ocrResult.Text + "\n" + result);
         }
 
         private void DrawText()
