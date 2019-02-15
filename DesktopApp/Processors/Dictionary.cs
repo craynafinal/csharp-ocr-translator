@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace DesktopApp.Processors
 {
@@ -11,12 +14,40 @@ namespace DesktopApp.Processors
     {
         private readonly Dictionary<String, String> dictionary;
         private static Dictionary instance;
+        private static string folderName = "dictionary";
+        private static string fileName = "dictionary.txt";
 
         private Dictionary()
         {
             dictionary = new Dictionary<string, string>();
-            dictionary.Add("Steins Gate", "슈타인즈 게이트");
-            dictionary.Add("God", "신");
+
+            if (!File.Exists(GetFullFilePath()))
+            {
+                File.WriteAllText(GetFullFilePath(), "", Encoding.Unicode);
+            } else
+            {
+                string allLines = File.ReadAllText(GetFullFilePath(), Encoding.UTF8);
+                foreach (string line in allLines.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+                {
+                    string[] tokens = line.Split('#');
+                    dictionary.Add(tokens[0].Trim(), tokens[1].Trim());
+                }
+            }
+        }
+
+        private string GetRelativeFilePath()
+        {
+            return folderName + "\\" + fileName;
+        }
+
+        private string GetFullFilePath()
+        {
+            return GetFolderPath() + "\\" + fileName;
+        }
+
+        private string GetFolderPath()
+        {
+            return Path.GetDirectoryName(Application.ExecutablePath) + "\\" + folderName;
         }
 
         /// <summary>
