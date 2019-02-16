@@ -11,12 +11,12 @@ namespace DesktopApp
         [DllImport("User32.dll")]
         public static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
 
-        public void DrawGraphic()
+        public void DrawGraphic(string text)
         {
             IntPtr desktopPtr = GetDC(IntPtr.Zero);
             Graphics g = Graphics.FromHdc(desktopPtr);
 
-            string drawString = "Sample Text";
+            string drawString = text;
             Font drawFont = new Font("Arial", 16);
             SolidBrush drawBrush = new SolidBrush(Color.Black);
             float x = 150.0F;

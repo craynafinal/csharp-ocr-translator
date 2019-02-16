@@ -23,13 +23,14 @@ namespace DesktopApp
     {
         private PapagoTest papagoTest = new PapagoTest();
         private GlobalKeyHook globalKeyHook;
-        private ScreenFocus screenFocusReadDesktop;
+        private Configuration configuration;
         private bool isScreenFocused = false;
 
         public Main()
         {
             InitializeComponent();
             SetupGlobalKeyHook();
+            configuration = Configuration.GetInstance();
         }
 
         private void SetupGlobalKeyHook()
@@ -54,15 +55,14 @@ namespace DesktopApp
         {
             if (e.KeyCode == Keys.X && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
             {
-                screenFocusReadDesktop = new ScreenFocus();
-                OpenScreenGrabber(screenFocusReadDesktop);
+                OpenScreenGrabber(configuration);
             }
 
         }
 
         private DesktopBitmapData ReadFromDesktop()
         {
-            if (screenFocusReadDesktop == null)
+            if (!configuration.IsScreenshotAreaSet)
             {
                 throw new Exception("Initialize screen focus first!");
             }
@@ -71,10 +71,10 @@ namespace DesktopApp
 
             MemoryStream memoryStream = new MemoryStream();
 
-            var bitmap = new Bitmap(screenFocusReadDesktop.Width, screenFocusReadDesktop.Height, PixelFormat.Format32bppArgb);
+            var bitmap = new Bitmap(configuration.ScreenshotWidth, configuration.ScreenshotHeight, PixelFormat.Format32bppArgb);
             Graphics graphics = Graphics.FromImage(bitmap);
-            graphics.CopyFromScreen(screenFocusReadDesktop.X, screenFocusReadDesktop.Y, 0, 0, 
-                new Size(screenFocusReadDesktop.Width, screenFocusReadDesktop.Height), CopyPixelOperation.SourceCopy);
+            graphics.CopyFromScreen(configuration.ScreenshotX, configuration.ScreenshotY, 0, 0, 
+                new Size(configuration.ScreenshotWidth, configuration.ScreenshotHeight), CopyPixelOperation.SourceCopy);
 
             ImageFilter.ConvertBitmapToGrayscale(bitmap);
             ImageFilter.AdjustBitmapBrightness(bitmap, -50);
@@ -113,17 +113,18 @@ namespace DesktopApp
 
             // TOOD: debugging purpose
             Console.WriteLine(ocrResult.Text + "\n" + result);
+            new Drawing().DrawGraphic(ocrResult.Text + "\n" + result);
         }
 
         private void DrawText()
         {
             var drawing = new Drawing();
-            drawing.DrawGraphic();
+            drawing.DrawGraphic("text");
         }
 
-        private void OpenScreenGrabber(ScreenFocus screenFocus)
+        private void OpenScreenGrabber(Configuration configuration)
         {
-            var screenForm = new ScreenGrabber(screenFocus);
+            var screenForm = new ScreenGrabber(configuration);
             screenForm.Show();
         }
 

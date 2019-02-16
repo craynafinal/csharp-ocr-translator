@@ -121,7 +121,7 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="KeyHooks\GlobalKeyHook.cs" />
-    <Compile Include="Pocos\ScreenFocus.cs" />
+    <Compile Include="Pocos\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\ScreenGrabber.cs">

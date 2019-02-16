@@ -13,7 +13,7 @@ namespace DesktopApp
         private Graphics formGraphics;
         private bool isDown = false;
         private int initialX, initialY, areaX, areaY, areaWidth, areaHeight;
-        private ScreenFocus screenFocus;
+        private Configuration configuration;
 
         private void ScreenGrabberMouseDown(object sender, MouseEventArgs e)
         {
@@ -45,20 +45,21 @@ namespace DesktopApp
         private void ScreenGrabberMouseUp(object sender, MouseEventArgs e)
         {
             isDown = false;
-            screenFocus.X = areaX;
-            screenFocus.Y = areaY;
-            screenFocus.Width = areaWidth;
-            screenFocus.Height = areaHeight;
+            configuration.ScreenshotX = areaX;
+            configuration.ScreenshotY = areaY;
+            configuration.ScreenshotWidth = areaWidth;
+            configuration.ScreenshotHeight = areaHeight;
+            configuration.IsScreenshotAreaSet = true;
             this.Close();
         }
 
         /// <summary>
         /// Initialize screen grabber and assigns mouse event actions.
         /// </summary>
-        public ScreenGrabber(ScreenFocus screenFocus)
+        public ScreenGrabber(Configuration configuration)
         {
             InitializeComponent();
-            this.screenFocus = screenFocus;
+            this.configuration = configuration;
             this.DoubleBuffered = true;
             this.Location = SystemInformation.VirtualScreen.Location;
             this.Size = SystemInformation.VirtualScreen.Size;

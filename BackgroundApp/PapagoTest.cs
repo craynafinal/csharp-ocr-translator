@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using Polly;
 using System;
 using System.Text.RegularExpressions;
 
@@ -61,9 +62,22 @@ namespace BackgroundApp
         private string GetTranslatedText()
         {
             WebDriverWait wait = new WebDriverWait(_webDriver, new TimeSpan(0, 0, _waitTime));
-            wait.Until(driver => driver.FindElement(_translatedTextArea));
-            IWebElement webElement = _webDriver.FindElement(_translatedTextArea);
-            return webElement.Text;
+            IWebElement webElement = null;
+            Policy
+                .Handle<NoSuchElementException>()
+                .WaitAndRetry(3, retryAttempt => TimeSpan.FromSeconds(3))
+                .Execute(() => {
+                    wait.Until(driver => driver.FindElement(_translatedTextArea));
+                    webElement = _webDriver.FindElement(_translatedTextArea);
+                });
+            
+            if (webElement == null)
+            {
+                throw new Exception("Failed to get translated text...");
+            } else
+            {
+                return webElement.Text;
+            }
         }
 
         private string GetUrl(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)

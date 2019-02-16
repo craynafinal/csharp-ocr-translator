@@ -79,12 +79,12 @@ namespace DesktopApp.Processors
         }
 
         /// <summary>
-        /// Return all key value pair as key:value\n format.
+        /// Return all key value pair as key#value\n format.
         /// </summary>
         /// <returns></returns>
         public string GetFullText()
         {
-            return string.Join("\n", dictionary.Select(p => p.Key + ":" + p.Value));
+            return string.Join("\n", dictionary.Select(p => p.Key + "#" + p.Value));
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace DesktopApp.Processors
             {
                 try
                 {
-                    string[] tokens = line.Split(':');
+                    string[] tokens = line.Split('#');
                     newDictionary.Add(tokens[0], tokens[1]);
                 } catch (Exception)
                 {
