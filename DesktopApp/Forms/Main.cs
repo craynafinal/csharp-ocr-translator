@@ -1,6 +1,7 @@
 ﻿using AForge;
 using BackgroundApp;
 using DesktopApp.Filters;
+using DesktopApp.Forms;
 using DesktopApp.Poco;
 using DesktopApp.Pocos;
 using DesktopApp.Processors;
@@ -23,6 +24,7 @@ namespace DesktopApp
         private PapagoTest papagoTest = new PapagoTest();
         private GlobalKeyHook globalKeyHook;
         private ScreenFocus screenFocusReadDesktop;
+        private bool isScreenFocused = false;
 
         public Main()
         {
@@ -55,6 +57,7 @@ namespace DesktopApp
                 screenFocusReadDesktop = new ScreenFocus();
                 OpenScreenGrabber(screenFocusReadDesktop);
             }
+
         }
 
         private DesktopBitmapData ReadFromDesktop()
@@ -131,6 +134,8 @@ namespace DesktopApp
 
         private void button3_Click(object sender, EventArgs e)
         {
+            var dictionaryEditor = new DictionaryEditor();
+            dictionaryEditor.Show();
         }
 
 

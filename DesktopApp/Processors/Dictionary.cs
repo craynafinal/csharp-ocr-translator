@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace DesktopApp.Processors
 {
@@ -12,7 +13,7 @@ namespace DesktopApp.Processors
     /// </summary>
     class Dictionary
     {
-        private readonly Dictionary<String, String> dictionary;
+        private Dictionary<string, string> dictionary;
         private static Dictionary instance;
         private static string folderName = "dictionary";
         private static string fileName = "dictionary.txt";
@@ -75,6 +76,55 @@ namespace DesktopApp.Processors
             }
 
             return text;
+        }
+
+        /// <summary>
+        /// Return all key value pair as key:value\n format.
+        /// </summary>
+        /// <returns></returns>
+        public string GetFullText()
+        {
+            return string.Join("\n", dictionary.Select(p => p.Key + ":" + p.Value));
+        }
+
+        /// <summary>
+        /// Save new dictionary to memory and the file.
+        /// </summary>
+        /// <param name="fullText">Full text in format</param>
+        /// <returns>True if successful; false otherwise</returns>
+        public bool SaveNewDictionary(string fullText)
+        {
+            if (string.IsNullOrEmpty(fullText) || string.IsNullOrWhiteSpace(fullText))
+            {
+                return false;
+            }
+
+            Dictionary<string, string> newDictionary = new Dictionary<string, string>();
+            bool isSuccessful = true;
+
+            foreach (string line in fullText.Split('\n'))
+            {
+                try
+                {
+                    string[] tokens = line.Split(':');
+                    newDictionary.Add(tokens[0], tokens[1]);
+                } catch (Exception)
+                {
+                    isSuccessful = false;
+                }
+            }
+
+            if (isSuccessful) {
+                try {
+                    File.WriteAllText(GetFullFilePath(), fullText, Encoding.Unicode);
+                    dictionary = newDictionary;
+                } catch (Exception)
+                {
+                    isSuccessful = false;
+                }
+            }
+
+            return isSuccessful;
         }
     }
 }

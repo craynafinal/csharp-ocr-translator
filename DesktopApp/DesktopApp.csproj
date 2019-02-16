@@ -104,6 +104,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\DictionaryEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DictionaryEditor.Designer.cs">
+      <DependentUpon>DictionaryEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pocos\BitmapData.cs" />
     <Compile Include="Processors\Dictionary.cs" />
     <Compile Include="Processors\Drawing.cs" />
@@ -124,6 +130,9 @@
     <Compile Include="Forms\ScreenGrabber.Designer.cs">
       <DependentUpon>ScreenGrabber.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\DictionaryEditor.resx">
+      <DependentUpon>DictionaryEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
