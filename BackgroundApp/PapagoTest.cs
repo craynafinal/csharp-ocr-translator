@@ -15,6 +15,8 @@ namespace BackgroundApp
         private IWebDriver _webDriver;
         private By _translatedTextArea = By.Id("txtTarget");
         private const int _waitTime = 20;
+        private string previousSourceText;
+        private string previousTranslatedText;
 
         public PapagoTest()
         {
@@ -50,34 +52,35 @@ namespace BackgroundApp
         /// <returns>Translated text</returns>
         public string Translate(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)
         {
+            /* if trying to translate the same text, return cached text. */
+            if (text.Equals(previousSourceText))
+            {
+                return previousTranslatedText;
+            }
+
+            previousSourceText = text;
+
             // TODO: if request is too big, should run this several times - 2,083 characters
 
             _webDriver.Url = GetUrl(RemoveIllegalCharacters(text), sourceLanguage, targetLanguage);
-            //return GetTranslatedText();
             string result = GetTranslatedText();
-            Console.WriteLine(result);
+            previousTranslatedText = result;
             return result;
         }
 
         private string GetTranslatedText()
         {
             WebDriverWait wait = new WebDriverWait(_webDriver, new TimeSpan(0, 0, _waitTime));
-            IWebElement webElement = null;
+            string translatedText = "";
             Policy
                 .Handle<NoSuchElementException>()
                 .WaitAndRetry(3, retryAttempt => TimeSpan.FromSeconds(3))
                 .Execute(() => {
                     wait.Until(driver => driver.FindElement(_translatedTextArea));
-                    webElement = _webDriver.FindElement(_translatedTextArea);
+                    translatedText = _webDriver.FindElement(_translatedTextArea).Text;
                 });
-            
-            if (webElement == null)
-            {
-                throw new Exception("Failed to get translated text...");
-            } else
-            {
-                return webElement.Text;
-            }
+
+            return translatedText;
         }
 
         private string GetUrl(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)

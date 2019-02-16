@@ -9,6 +9,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using Windows.Globalization;
 using Windows.Graphics.Imaging;
@@ -24,7 +25,6 @@ namespace DesktopApp
         private PapagoTest papagoTest = new PapagoTest();
         private GlobalKeyHook globalKeyHook;
         private Configuration configuration;
-        private bool isScreenFocused = false;
 
         public Main()
         {
@@ -58,6 +58,36 @@ namespace DesktopApp
                 OpenScreenGrabber(configuration);
             }
 
+            if (e.KeyCode == Keys.Z && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
+            {
+                isRunning = true;
+                RunTranslation();
+            }
+
+            if (e.KeyCode == Keys.C && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
+            {
+                isRunning = false;
+            }
+        }
+
+        bool isRunning = false;
+
+        private void RunTranslation()
+        {
+            Thread test = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                while (isRunning)
+                {
+                    TranslateBitmapText(ReadFromDesktop());
+
+                    Thread.Sleep(2000);
+                }
+
+                Thread.CurrentThread.Abort();
+            });
+
+            test.Start();
         }
 
         private DesktopBitmapData ReadFromDesktop()
@@ -66,8 +96,6 @@ namespace DesktopApp
             {
                 throw new Exception("Initialize screen focus first!");
             }
-
-            
 
             MemoryStream memoryStream = new MemoryStream();
 
