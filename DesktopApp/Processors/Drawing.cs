@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DesktopApp.Poco;
+using System;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 
 namespace DesktopApp
@@ -11,33 +13,71 @@ namespace DesktopApp
         [DllImport("User32.dll")]
         public static extern void ReleaseDC(IntPtr hwnd, IntPtr dc);
 
-        public void DrawGraphic(string text)
+        private Graphics graphic;
+        private static Drawing instance;
+        private string previousText;
+
+        public static Drawing GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Drawing();
+            }
+
+            return instance;
+        }
+
+        private Drawing()
+        {
+        }
+
+        public void Redraw(Configuration configuration)
+        {
+            if (previousText != null)
+            {
+                DrawGraphic(previousText, configuration);
+            }
+        }
+
+        public void HideGraphic()
         {
             IntPtr desktopPtr = GetDC(IntPtr.Zero);
-            Graphics g = Graphics.FromHdc(desktopPtr);
+            graphic = Graphics.FromHdc(desktopPtr);
+
+            graphic.FillRectangle(new SolidBrush(Color.Transparent), new Rectangle(0, 0, 1, 1));
+            graphic.DrawString("", new Font("Arial", 1), new SolidBrush(Color.Transparent), new Rectangle(0, 0, 1, 1));
+            graphic.Dispose();
+
+            ReleaseDC(IntPtr.Zero, desktopPtr);
+        }
+
+        public void DrawGraphic(string text, Configuration configuration)
+        {
+            IntPtr desktopPtr = GetDC(IntPtr.Zero);
+            graphic = Graphics.FromHdc(desktopPtr);
 
             string drawString = text;
-            Font drawFont = new Font("Arial", 16);
+            Font drawFont = new Font(configuration.Font, configuration.FontSize);
             SolidBrush drawBrush = new SolidBrush(Color.Black);
             float x = 150.0F;
             float y = 50.0F;
 
 
-            SizeF size = g.MeasureString(drawString, drawFont);
+            SizeF size = graphic.MeasureString(drawString, drawFont);
 
             Rectangle rect = new Rectangle((int)x, (int)y, 50, 300);
 
-            g.FillRectangle(new SolidBrush(Color.White), rect);
+            graphic.FillRectangle(new SolidBrush(Color.White), rect);
 
 
             StringFormat drawFormat = new StringFormat();
-            g.DrawString(drawString, drawFont, drawBrush, rect);
-            //g.DrawString(drawString, drawFont, drawBrush, x, y, drawFormat);
+            graphic.DrawString(drawString, drawFont, drawBrush, rect);
             drawFont.Dispose();
             drawBrush.Dispose();
 
-            g.Dispose();
+            graphic.Dispose();
             ReleaseDC(IntPtr.Zero, desktopPtr);
+            previousText = text;
         }
     }
 }

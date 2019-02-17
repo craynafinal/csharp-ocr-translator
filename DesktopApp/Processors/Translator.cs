@@ -62,7 +62,7 @@ namespace DesktopApp.Processors
                 Thread.CurrentThread.IsBackground = true;
                 while (true)
                 {
-                    TranslateBitmapText(ReadFromDesktop(configuration));
+                    TranslateBitmapText(ReadFromDesktop(configuration), configuration);
 
                     Thread.Sleep(2000);
                 }
@@ -82,8 +82,13 @@ namespace DesktopApp.Processors
 
             var bitmap = new Bitmap(configuration.ScreenshotWidth, configuration.ScreenshotHeight, PixelFormat.Format32bppArgb);
             Graphics graphics = Graphics.FromImage(bitmap);
+
+            //Drawing.GetInstance().HideGraphic();
+
             graphics.CopyFromScreen(configuration.ScreenshotX, configuration.ScreenshotY, 0, 0,
                 new Size(configuration.ScreenshotWidth, configuration.ScreenshotHeight), CopyPixelOperation.SourceCopy);
+
+            //Drawing.GetInstance().Redraw(configuration);
 
             ImageFilter.ConvertBitmapToGrayscale(bitmap);
             ImageFilter.AdjustBitmapBrightness(bitmap, -50);
@@ -102,7 +107,7 @@ namespace DesktopApp.Processors
             return bitmapData;
         }
 
-        private async void TranslateBitmapText(DesktopBitmapData desktopBitmapData)
+        private async void TranslateBitmapText(DesktopBitmapData desktopBitmapData, Configuration configuration)
         {
             /* need to be here? */
             var language = new Language("en");
@@ -122,7 +127,7 @@ namespace DesktopApp.Processors
 
             // TOOD: debugging purpose
             Console.WriteLine(ocrResult.Text + "\n" + result);
-            new Drawing().DrawGraphic(ocrResult.Text + "\n" + result);
+            Drawing.GetInstance().DrawGraphic(ocrResult.Text + "\n" + result, configuration);
         }
     }
 }

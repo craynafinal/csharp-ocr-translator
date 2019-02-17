@@ -46,5 +46,7 @@
         public int OutputWidth { get; set; }
         public int OutputHeight { get; set; }
         public bool IsOutputAreaSet { get; set; }
+
+        /* language setting */
     }
 }

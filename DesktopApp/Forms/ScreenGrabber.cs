@@ -26,7 +26,7 @@ namespace DesktopApp
         {
             if (isDown == true)
             {
-                this.Refresh();
+                Refresh();
                 Pen drwaPen = new Pen(Color.Red, 3);
                 int width = e.X - initialX, height = e.Y - initialY;
 
@@ -37,7 +37,7 @@ namespace DesktopApp
 
                 Rectangle rect = new Rectangle(areaX, areaY, areaWidth, areaHeight);
 
-                formGraphics = this.CreateGraphics();
+                formGraphics = CreateGraphics();
                 formGraphics.DrawRectangle(drwaPen, rect);
             }
         }
@@ -50,7 +50,7 @@ namespace DesktopApp
             configuration.ScreenshotWidth = areaWidth;
             configuration.ScreenshotHeight = areaHeight;
             configuration.IsScreenshotAreaSet = true;
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -60,12 +60,12 @@ namespace DesktopApp
         {
             InitializeComponent();
             this.configuration = configuration;
-            this.DoubleBuffered = true;
-            this.Location = SystemInformation.VirtualScreen.Location;
-            this.Size = SystemInformation.VirtualScreen.Size;
-            this.MouseDown += new MouseEventHandler(this.ScreenGrabberMouseDown);
-            this.MouseMove += new MouseEventHandler(this.ScreenGrabberMouseMove);
-            this.MouseUp += new MouseEventHandler(this.ScreenGrabberMouseUp);
+            DoubleBuffered = true;
+            Location = SystemInformation.VirtualScreen.Location;
+            Size = SystemInformation.VirtualScreen.Size;
+            MouseDown += new MouseEventHandler(ScreenGrabberMouseDown);
+            MouseMove += new MouseEventHandler(ScreenGrabberMouseMove);
+            MouseUp += new MouseEventHandler(ScreenGrabberMouseUp);
         }
     }
 }
