@@ -14,6 +14,7 @@ namespace DesktopApp
         private bool isDown = false;
         private int initialX, initialY, areaX, areaY, areaWidth, areaHeight;
         private Configuration configuration;
+        private static ScreenGrabber instance;
 
         private void ScreenGrabberMouseDown(object sender, MouseEventArgs e)
         {
@@ -50,13 +51,24 @@ namespace DesktopApp
             configuration.ScreenshotWidth = areaWidth;
             configuration.ScreenshotHeight = areaHeight;
             configuration.IsScreenshotAreaSet = true;
+            instance = null;
             Close();
+        }
+
+        public static ScreenGrabber GetInstance(Configuration configuration)
+        {
+            if (instance == null)
+            {
+                instance = new ScreenGrabber(configuration);
+            }
+
+            return instance;
         }
 
         /// <summary>
         /// Initialize screen grabber and assigns mouse event actions.
         /// </summary>
-        public ScreenGrabber(Configuration configuration)
+        private ScreenGrabber(Configuration configuration)
         {
             InitializeComponent();
             this.configuration = configuration;

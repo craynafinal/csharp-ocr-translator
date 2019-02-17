@@ -66,7 +66,7 @@ namespace DesktopApp
         
         private void OpenScreenGrabber(Configuration configuration)
         {
-            var screenForm = new ScreenGrabber(configuration);
+            var screenForm = ScreenGrabber.GetInstance(configuration);
             screenForm.Show();
         }
 
