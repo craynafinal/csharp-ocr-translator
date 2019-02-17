@@ -71,20 +71,21 @@ namespace BackgroundApp
             previousTranslatedText = result;
             return result;
         }
-
+        string test;
         private string GetTranslatedText()
         {
             WebDriverWait wait = new WebDriverWait(_webDriver, new TimeSpan(0, 0, _waitTime));
             string translatedText = "";
 
             Policy
-                .Handle<Exception>()
-                .WaitAndRetry(100, retryAttempt => TimeSpan.FromSeconds(2), (exception, timeSpan, retryCount, context) =>
-                {
+                .Handle<NoSuchElementException>()
+                .WaitAndRetry(100, retryAttempt => TimeSpan.FromSeconds(2))
+                .Execute(() => {
                     wait.Until(driver => driver.FindElement(_translatedTextArea));
                     translatedText = _webDriver.FindElement(_translatedTextArea).Text;
+                    test = _webDriver.FindElement(_translatedTextArea).Text;
                 });
-
+            
             return translatedText;
         }
 
