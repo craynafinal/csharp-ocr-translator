@@ -59,13 +59,20 @@ namespace DesktopApp.Processors
         /// <param name="output"></param>
         public void Run(Configuration configuration, Output output)
         {
+            if (translationThread != null && translationThread.IsAlive)
+            {
+                return;
+            }
+
             translationThread = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 while (true)
                 {
-                    output.SetTextBox(TranslateBitmapText(ReadFromDesktop(configuration), configuration).Result);
-                    Thread.Sleep(2000);
+                    var task = TranslateBitmapText(ReadFromDesktop(configuration), configuration);
+                    task.Wait();
+                    output.SetTextBox(task.Result);
+                    Thread.Sleep(500);
                 }
             });
 

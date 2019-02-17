@@ -48,17 +48,17 @@ namespace DesktopApp
         /// <param name="e"></param>
         public void GlobalKeyHook_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.X && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
+            if (e.KeyCode == Keys.X && (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift)))
             {
                 OpenScreenGrabber(configuration);
             }
 
-            if (e.KeyCode == Keys.Z && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
+            if (e.KeyCode == Keys.Z && (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift)))
             {
                 translator.Run(configuration, output);
             }
 
-            if (e.KeyCode == Keys.C && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
+            if (e.KeyCode == Keys.C && (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift)))
             {
                 translator.Abort();
             }

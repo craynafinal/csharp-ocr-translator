@@ -20,10 +20,10 @@ namespace BackgroundApp
 
         public PapagoTest()
         {
-            _webDriver = createWebDriver();
+            _webDriver = CreateWebDriver();
         }
 
-        private IWebDriver createWebDriver()
+        private IWebDriver CreateWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("window-size=1920,1080");
@@ -52,6 +52,12 @@ namespace BackgroundApp
         /// <returns>Translated text</returns>
         public string Translate(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)
         {
+            /* don't waste resource for empty string. */
+            if (string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text))
+            {
+                return "";
+            }
+
             /* return nothing if character length is greater than 2000 for now. */
             if (text.Length > 2000)
             {
@@ -81,7 +87,7 @@ namespace BackgroundApp
                 .Handle<NoSuchElementException>()
                 .WaitAndRetry(100, retryAttempt => TimeSpan.FromSeconds(2))
                 .Execute(() => {
-                    wait.Until(driver => driver.FindElement(_translatedTextArea));
+                    wait.Until(driver => driver.FindElement(_translatedTextArea).Text != "");
                     translatedText = _webDriver.FindElement(_translatedTextArea).Text;
                     test = _webDriver.FindElement(_translatedTextArea).Text;
                 });

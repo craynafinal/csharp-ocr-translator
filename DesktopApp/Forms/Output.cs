@@ -1,5 +1,6 @@
 ﻿using DesktopApp.Poco;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DesktopApp.Forms
@@ -15,6 +16,10 @@ namespace DesktopApp.Forms
             Left = configuration.OutputY;
             Width = configuration.OutputWidth;
             Height = configuration.OutputHeight;
+            OutputTextBox.Width = Width;
+            OutputTextBox.Height = Height;
+            OutputTextBox.Top = 0;
+            OutputTextBox.Left = 0;
 
             this.configuration = configuration;
         }
@@ -25,6 +30,8 @@ namespace DesktopApp.Forms
             {
                 configuration.OutputWidth = Width;
                 configuration.OutputHeight = Height;
+                OutputTextBox.Width = Width;
+                OutputTextBox.Height = Height;
             }
         }
 
@@ -45,7 +52,11 @@ namespace DesktopApp.Forms
         {
             Invoke(new Action(() =>
             {
+                OutputTextBox.Font = new Font(configuration.Font, configuration.FontSize);
+                OutputTextBox.ForeColor = configuration.FontColor;
+                OutputTextBox.BackColor = configuration.BackgroundColor;
                 OutputTextBox.Text = fullText;
+                OutputTextBox.Invalidate();
             }));
         }
     }
