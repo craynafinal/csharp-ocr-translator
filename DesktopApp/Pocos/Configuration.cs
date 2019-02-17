@@ -1,5 +1,10 @@
 ﻿using BackgroundApp;
+using System;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using System.Windows.Forms;
 using Windows.Globalization;
 
 namespace DesktopApp.Poco
@@ -11,20 +16,104 @@ namespace DesktopApp.Poco
     {
         private static Configuration instance;
 
+        private static readonly string folderName = "configuration";
+        private static readonly string fileName = "configuration.txt";
+
         private Configuration()
         {
-            IsScreenshotAreaSet = false;
-            IsOutputAreaSet = false;
-            Font = "Gulim";
-            FontSize = 16;
-            SourceLanguage = LanguageCode.ENGLISH;
-            TargetLanguage = LanguageCode.KOREAN;
-            FontColor = Color.Black;
-            BackgroundColor = Color.White;
+            if (!File.Exists(GetFullFilePath()))
+            {
+                /* some default settings */
+                IsScreenshotAreaSet = false;
+                IsOutputAreaSet = false;
+                Font = "Arial";
+                FontSize = 16;
+                SourceLanguage = LanguageCode.ENGLISH;
+                TargetLanguage = LanguageCode.KOREAN;
+                FontColor = Color.Black;
+                BackgroundColor = Color.White;
+                Save();
+            }
+            else
+            {
+                string allLines = File.ReadAllText(GetFullFilePath(), Encoding.UTF8);
+                foreach (string line in allLines.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+                {
+                    if (string.IsNullOrEmpty(line) || string.IsNullOrWhiteSpace(line))
+                    {
+                        continue;
+                    }
+
+                    string[] tokens = line.Split('#');
+
+                    if (int.TryParse(tokens[1], out int n))
+                    {
+                        GetType().GetProperty(tokens[0]).SetValue(this, n);
+                    } else if (bool.TryParse(tokens[1], out bool b))
+                    {
+                        GetType().GetProperty(tokens[0]).SetValue(this, b);
+                    } else if (tokens[0].Contains("Color") && Enum.TryParse(tokens[1], out KnownColor color))
+                    {
+                        GetType().GetProperty(tokens[0]).SetValue(this, Color.FromKnownColor(color));
+                    } else if (tokens[0].Contains("Language") && Enum.TryParse(tokens[1], out LanguageCode lang))
+                    {
+                        GetType().GetProperty(tokens[0]).SetValue(this, lang);
+                    } else
+                    {
+                        GetType().GetProperty(tokens[0]).SetValue(this, tokens[1]);
+                    }
+                }
+            }
+
+            /* debugging purpose */
             OutputX = 50;
             OutputY = 50;
             OutputWidth = 200;
             OutputHeight = 200;
+        }
+
+        /// <summary>
+        /// Save the configuration to a separate text file.
+        /// </summary>
+        /// <returns>True if successful; false otherwise</returns>
+        public bool Save()
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            bool result = true;
+            try { 
+                foreach (PropertyInfo prop in typeof(Configuration).GetProperties())
+                {
+                    var value = prop.GetValue(this);
+                    if (prop.Name.Contains("Color") && value.GetType().Equals(typeof(Color)))
+                    {
+                        value = ((Color)value).Name;
+                    }
+                    stringBuilder.Append(prop.Name + "#" + value + "\r\n");
+                }
+
+                if (!Directory.Exists(GetFolderPath()))
+                {
+                    Directory.CreateDirectory(GetFolderPath());
+                }
+
+                File.WriteAllText(GetFullFilePath(), stringBuilder.ToString(), Encoding.Unicode);
+                
+            } catch (Exception e)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        private string GetFullFilePath()
+        {
+            return GetFolderPath() + "\\" + fileName;
+        }
+
+        private string GetFolderPath()
+        {
+            return Path.GetDirectoryName(Application.ExecutablePath) + "\\" + folderName;
         }
 
         public Language GetSourceLanguage()

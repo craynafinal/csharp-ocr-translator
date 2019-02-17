@@ -15,8 +15,8 @@ namespace DesktopApp.Processors
     {
         private Dictionary<string, string> dictionary;
         private static Dictionary instance;
-        private static string folderName = "dictionary";
-        private static string fileName = "dictionary.txt";
+        private static readonly string folderName = "dictionary";
+        private static readonly string fileName = "dictionary.txt";
 
         private Dictionary()
         {
@@ -24,6 +24,11 @@ namespace DesktopApp.Processors
 
             if (!File.Exists(GetFullFilePath()))
             {
+                if (!Directory.Exists(GetFolderPath()))
+                {
+                    Directory.CreateDirectory(GetFolderPath());
+                }
+
                 File.WriteAllText(GetFullFilePath(), "", Encoding.Unicode);
             } else
             {
@@ -116,6 +121,11 @@ namespace DesktopApp.Processors
 
             if (isSuccessful) {
                 try {
+                    if (!Directory.Exists(GetFolderPath()))
+                    {
+                        Directory.CreateDirectory(GetFolderPath());
+                    }
+
                     File.WriteAllText(GetFullFilePath(), fullText, Encoding.Unicode);
                     dictionary = newDictionary;
                 } catch (Exception)

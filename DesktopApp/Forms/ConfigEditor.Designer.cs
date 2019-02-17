@@ -57,6 +57,7 @@
             this.OutputYNumBox = new System.Windows.Forms.NumericUpDown();
             this.OutputXNumBox = new System.Windows.Forms.NumericUpDown();
             this.FontSizeNumBox = new System.Windows.Forms.NumericUpDown();
+            this.NotificationLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenXNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenYNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenWNumBox)).BeginInit();
@@ -352,11 +353,20 @@
             this.FontSizeNumBox.Size = new System.Drawing.Size(100, 21);
             this.FontSizeNumBox.TabIndex = 52;
             // 
+            // NotificationLabel
+            // 
+            this.NotificationLabel.AutoSize = true;
+            this.NotificationLabel.Location = new System.Drawing.Point(13, 186);
+            this.NotificationLabel.Name = "NotificationLabel";
+            this.NotificationLabel.Size = new System.Drawing.Size(0, 12);
+            this.NotificationLabel.TabIndex = 53;
+            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 227);
+            this.Controls.Add(this.NotificationLabel);
             this.Controls.Add(this.FontSizeNumBox);
             this.Controls.Add(this.OutputHNumBox);
             this.Controls.Add(this.OutputWNumBox);
@@ -398,6 +408,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.OutputXNumBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FontSizeNumBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -431,5 +442,6 @@
         private System.Windows.Forms.NumericUpDown OutputYNumBox;
         private System.Windows.Forms.NumericUpDown OutputXNumBox;
         private System.Windows.Forms.NumericUpDown FontSizeNumBox;
+        private System.Windows.Forms.Label NotificationLabel;
     }
 }

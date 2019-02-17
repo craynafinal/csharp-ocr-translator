@@ -21,6 +21,17 @@ namespace DesktopApp.Forms
             {
                 NotificationLabel.Text = "Cannot save the dictionary...";
             }
+
+            Timer timer = new Timer()
+            {
+                Interval = 2000,
+                Enabled = true
+            };
+
+            timer.Tick += (timerSender, timerException) => {
+                NotificationLabel.Text = "";
+                timer.Dispose();
+            };
         }
 
         private void DictionaryTextBox_TextChanged(object sender, EventArgs e)
