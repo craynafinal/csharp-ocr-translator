@@ -72,6 +72,9 @@ namespace BackgroundApp
         {
             WebDriverWait wait = new WebDriverWait(_webDriver, new TimeSpan(0, 0, _waitTime));
             string translatedText = "";
+
+            // TODO: still stability issue...
+
             Policy
                 .Handle<NoSuchElementException>()
                 .WaitAndRetry(3, retryAttempt => TimeSpan.FromSeconds(3))
