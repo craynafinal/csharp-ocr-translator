@@ -20,14 +20,14 @@ namespace BackgroundApp
 
         public PapagoTest()
         {
-            this._webDriver = createWebDriver();
+            _webDriver = createWebDriver();
         }
 
         private IWebDriver createWebDriver()
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("window-size=1920,1080");
-            options.AddArgument("headless");
+            //options.AddArgument("headless");
             IWebDriver webDriver = new ChromeDriver(options);
             return webDriver;
         }
@@ -73,12 +73,10 @@ namespace BackgroundApp
             WebDriverWait wait = new WebDriverWait(_webDriver, new TimeSpan(0, 0, _waitTime));
             string translatedText = "";
 
-            // TODO: still stability issue...
-
             Policy
-                .Handle<NoSuchElementException>()
-                .WaitAndRetry(3, retryAttempt => TimeSpan.FromSeconds(3))
-                .Execute(() => {
+                .Handle<Exception>()
+                .WaitAndRetry(100, retryAttempt => TimeSpan.FromSeconds(2), (exception, timeSpan, retryCount, context) =>
+                {
                     wait.Until(driver => driver.FindElement(_translatedTextArea));
                     translatedText = _webDriver.FindElement(_translatedTextArea).Text;
                 });
