@@ -15,6 +15,7 @@ namespace DesktopApp
         private GlobalKeyHook globalKeyHook;
         private Configuration configuration;
         private Translator translator;
+        private Output output;
 
         public Main()
         {
@@ -22,6 +23,9 @@ namespace DesktopApp
             SetupGlobalKeyHook();
             configuration = Configuration.GetInstance();
             translator = Translator.GetInstance();
+
+            output = new Output(configuration);
+            output.Show();
         }
 
         private void SetupGlobalKeyHook()
@@ -51,7 +55,7 @@ namespace DesktopApp
 
             if (e.KeyCode == Keys.Z && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))
             {
-                translator.Run(configuration);
+                translator.Run(configuration, output);
             }
 
             if (e.KeyCode == Keys.C && (ModifierKeys.HasFlag(Keys.Control) || ModifierKeys.HasFlag(Keys.Shift)))

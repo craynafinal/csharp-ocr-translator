@@ -1,5 +1,6 @@
 ﻿using BackgroundApp;
 using DesktopApp.Filters;
+using DesktopApp.Forms;
 using DesktopApp.Poco;
 using DesktopApp.Pocos;
 using System;
@@ -7,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using Windows.Graphics.Imaging;
 using Windows.Media.Ocr;
 
@@ -48,21 +50,21 @@ namespace DesktopApp.Processors
             {
                 translationThread.Abort();
             }
-        } 
+        }
 
         /// <summary>
         /// Run translation in a separate thread.
         /// </summary>
         /// <param name="configuration"></param>
-        public void Run(Configuration configuration)
+        /// <param name="output"></param>
+        public void Run(Configuration configuration, Output output)
         {
             translationThread = new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
                 while (true)
                 {
-                    TranslateBitmapText(ReadFromDesktop(configuration), configuration);
-
+                    output.SetTextBox(TranslateBitmapText(ReadFromDesktop(configuration), configuration).Result);
                     Thread.Sleep(2000);
                 }
             });
@@ -106,7 +108,7 @@ namespace DesktopApp.Processors
             return bitmapData;
         }
 
-        private async void TranslateBitmapText(DesktopBitmapData desktopBitmapData, Configuration configuration)
+        private async Task<string> TranslateBitmapText(DesktopBitmapData desktopBitmapData, Configuration configuration)
         {
             var language = configuration.GetSourceLanguage();
             if (!OcrEngine.IsLanguageSupported(language))
@@ -122,7 +124,7 @@ namespace DesktopApp.Processors
             string result = papagoTest.Translate(Dictionary.GetInstance().Apply(ocrResult.Text), configuration.SourceLanguage, configuration.TargetLanguage);
             desktopBitmapData.Graphics.Flush();
 
-            Drawing.GetInstance().DrawGraphic(ocrResult.Text + "\n" + result, configuration);
+            return ocrResult.Text + "\n" + result;
         }
     }
 }
