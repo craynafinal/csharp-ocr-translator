@@ -52,6 +52,12 @@ namespace BackgroundApp
         /// <returns>Translated text</returns>
         public string Translate(string text, LanguageCode sourceLanguage, LanguageCode targetLanguage)
         {
+            /* return nothing if character length is greater than 2000 for now. */
+            if (text.Length > 2000)
+            {
+                return "The input string is longer than 2000.";
+            }
+            
             /* if trying to translate the same text, return cached text. */
             if (text.Equals(previousSourceText))
             {
@@ -59,8 +65,6 @@ namespace BackgroundApp
             }
 
             previousSourceText = text;
-
-            // TODO: if request is too big, should run this several times - 2,083 characters
 
             _webDriver.Url = GetUrl(RemoveIllegalCharacters(text), sourceLanguage, targetLanguage);
             string result = GetTranslatedText();
@@ -106,7 +110,6 @@ namespace BackgroundApp
 
         static void Main(String[] args)
         {
-
         }
 
         ~PapagoTest()
