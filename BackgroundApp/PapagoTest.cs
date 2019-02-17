@@ -27,7 +27,7 @@ namespace BackgroundApp
         {
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("window-size=1920,1080");
-            //options.AddArgument("headless");
+            options.AddArgument("headless");
             IWebDriver webDriver = new ChromeDriver(options);
             return webDriver;
         }

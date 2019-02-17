@@ -1,5 +1,4 @@
-﻿using BackgroundApp;
-using System.Drawing;
+﻿using System.Drawing;
 using System.IO;
 
 namespace DesktopApp.Pocos

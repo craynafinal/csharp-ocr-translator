@@ -124,7 +124,7 @@ namespace DesktopApp.Processors
             string result = papagoTest.Translate(Dictionary.GetInstance().Apply(ocrResult.Text), configuration.SourceLanguage, configuration.TargetLanguage);
             desktopBitmapData.Graphics.Flush();
 
-            return ocrResult.Text + "\n" + result;
+            return result;
         }
     }
 }
