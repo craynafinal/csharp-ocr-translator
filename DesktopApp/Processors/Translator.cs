@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
-using Windows.Globalization;
 using Windows.Graphics.Imaging;
 using Windows.Media.Ocr;
 
@@ -109,8 +108,7 @@ namespace DesktopApp.Processors
 
         private async void TranslateBitmapText(DesktopBitmapData desktopBitmapData, Configuration configuration)
         {
-            /* need to be here? */
-            var language = new Language("en");
+            var language = configuration.GetSourceLanguage();
             if (!OcrEngine.IsLanguageSupported(language))
             {
                 throw new Exception($"{ language.LanguageTag } is not supported in this system.");
@@ -118,15 +116,12 @@ namespace DesktopApp.Processors
 
             var decoder = await BitmapDecoder.CreateAsync(desktopBitmapData.MemoryStream.AsRandomAccessStream());
             var softwareBitmap = await decoder.GetSoftwareBitmapAsync();
-            var engine = OcrEngine.TryCreateFromLanguage(new Language("en"));
+            var engine = OcrEngine.TryCreateFromLanguage(language);
             var ocrResult = await engine.RecognizeAsync(softwareBitmap).AsTask();
 
-            /* need to be dynamic */
-            string result = papagoTest.Translate(Dictionary.GetInstance().Apply(ocrResult.Text), LanguageCode.ENGLISH, LanguageCode.KOREAN);
+            string result = papagoTest.Translate(Dictionary.GetInstance().Apply(ocrResult.Text), configuration.SourceLanguage, configuration.TargetLanguage);
             desktopBitmapData.Graphics.Flush();
 
-            // TOOD: debugging purpose
-            Console.WriteLine(ocrResult.Text + "\n" + result);
             Drawing.GetInstance().DrawGraphic(ocrResult.Text + "\n" + result, configuration);
         }
     }
