@@ -59,16 +59,9 @@ namespace DesktopApp
             string drawString = text;
             Font drawFont = new Font(configuration.Font, configuration.FontSize);
             SolidBrush drawBrush = new SolidBrush(configuration.FontColor);
-            //float x = 150.0F;
-            //float y = 50.0F;
 
-            //SizeF size = graphic.MeasureString(drawString, drawFont);
-
-            //Rectangle rect = new Rectangle((int)x, (int)y, 50, 300);
             Rectangle rect = new Rectangle(configuration.OutputX, configuration.OutputY, configuration.OutputWidth, configuration.OutputHeight);
-
             graphic.FillRectangle(new SolidBrush(configuration.BackgroundColor), rect);
-
 
             StringFormat drawFormat = new StringFormat();
             graphic.DrawString(drawString, drawFont, drawBrush, rect);

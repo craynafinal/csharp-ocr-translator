@@ -29,24 +29,15 @@
         private void InitializeComponent()
         {
             this.SaveButton = new System.Windows.Forms.Button();
-            this.ScreenXTextBox = new System.Windows.Forms.TextBox();
-            this.ScreenYTextBox = new System.Windows.Forms.TextBox();
             this.ScreenYLabel = new System.Windows.Forms.Label();
-            this.OutputYTextBox = new System.Windows.Forms.TextBox();
             this.OutputYLabel = new System.Windows.Forms.Label();
-            this.OutputXTextBox = new System.Windows.Forms.TextBox();
             this.OutputXLabel = new System.Windows.Forms.Label();
-            this.ScreenWTextBox = new System.Windows.Forms.TextBox();
             this.ScreenWLabel = new System.Windows.Forms.Label();
-            this.ScreenHTextBox = new System.Windows.Forms.TextBox();
             this.ScreenHLabel = new System.Windows.Forms.Label();
-            this.OutputHTextBox = new System.Windows.Forms.TextBox();
             this.OutputHLabel = new System.Windows.Forms.Label();
-            this.OutputWTextBox = new System.Windows.Forms.TextBox();
             this.OutputWLabel = new System.Windows.Forms.Label();
             this.BGColorLabel = new System.Windows.Forms.Label();
             this.FontColorLabel = new System.Windows.Forms.Label();
-            this.FontSizeTextBox = new System.Windows.Forms.TextBox();
             this.FontSizeLabel = new System.Windows.Forms.Label();
             this.FontLabel = new System.Windows.Forms.Label();
             this.TargetLangLabel = new System.Windows.Forms.Label();
@@ -57,6 +48,24 @@
             this.BGColorDropdown = new System.Windows.Forms.ComboBox();
             this.TargetLangDropdown = new System.Windows.Forms.ComboBox();
             this.SourceLangDropdown = new System.Windows.Forms.ComboBox();
+            this.ScreenXNumBox = new System.Windows.Forms.NumericUpDown();
+            this.ScreenYNumBox = new System.Windows.Forms.NumericUpDown();
+            this.ScreenWNumBox = new System.Windows.Forms.NumericUpDown();
+            this.ScreenHNumBox = new System.Windows.Forms.NumericUpDown();
+            this.OutputHNumBox = new System.Windows.Forms.NumericUpDown();
+            this.OutputWNumBox = new System.Windows.Forms.NumericUpDown();
+            this.OutputYNumBox = new System.Windows.Forms.NumericUpDown();
+            this.OutputXNumBox = new System.Windows.Forms.NumericUpDown();
+            this.FontSizeNumBox = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenXNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenYNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenWNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenHNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputHNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputWNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputYNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputXNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FontSizeNumBox)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -67,20 +76,7 @@
             this.SaveButton.TabIndex = 1;
             this.SaveButton.Text = "Save";
             this.SaveButton.UseVisualStyleBackColor = true;
-            // 
-            // ScreenXTextBox
-            // 
-            this.ScreenXTextBox.Location = new System.Drawing.Point(83, 12);
-            this.ScreenXTextBox.Name = "ScreenXTextBox";
-            this.ScreenXTextBox.Size = new System.Drawing.Size(100, 21);
-            this.ScreenXTextBox.TabIndex = 2;
-            // 
-            // ScreenYTextBox
-            // 
-            this.ScreenYTextBox.Location = new System.Drawing.Point(83, 52);
-            this.ScreenYTextBox.Name = "ScreenYTextBox";
-            this.ScreenYTextBox.Size = new System.Drawing.Size(100, 21);
-            this.ScreenYTextBox.TabIndex = 4;
+            this.SaveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // ScreenYLabel
             // 
@@ -91,13 +87,6 @@
             this.ScreenYLabel.Text = "Screen Y";
             this.ScreenYLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // OutputYTextBox
-            // 
-            this.OutputYTextBox.Location = new System.Drawing.Point(262, 52);
-            this.OutputYTextBox.Name = "OutputYTextBox";
-            this.OutputYTextBox.Size = new System.Drawing.Size(100, 21);
-            this.OutputYTextBox.TabIndex = 8;
-            // 
             // OutputYLabel
             // 
             this.OutputYLabel.Location = new System.Drawing.Point(190, 56);
@@ -106,13 +95,6 @@
             this.OutputYLabel.TabIndex = 7;
             this.OutputYLabel.Text = "Output Y";
             this.OutputYLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // OutputXTextBox
-            // 
-            this.OutputXTextBox.Location = new System.Drawing.Point(262, 12);
-            this.OutputXTextBox.Name = "OutputXTextBox";
-            this.OutputXTextBox.Size = new System.Drawing.Size(100, 21);
-            this.OutputXTextBox.TabIndex = 6;
             // 
             // OutputXLabel
             // 
@@ -123,13 +105,6 @@
             this.OutputXLabel.Text = "Output X";
             this.OutputXLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // ScreenWTextBox
-            // 
-            this.ScreenWTextBox.Location = new System.Drawing.Point(83, 92);
-            this.ScreenWTextBox.Name = "ScreenWTextBox";
-            this.ScreenWTextBox.Size = new System.Drawing.Size(100, 21);
-            this.ScreenWTextBox.TabIndex = 12;
-            // 
             // ScreenWLabel
             // 
             this.ScreenWLabel.Location = new System.Drawing.Point(11, 96);
@@ -138,13 +113,6 @@
             this.ScreenWLabel.TabIndex = 11;
             this.ScreenWLabel.Text = "Screen W";
             this.ScreenWLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // ScreenHTextBox
-            // 
-            this.ScreenHTextBox.Location = new System.Drawing.Point(83, 132);
-            this.ScreenHTextBox.Name = "ScreenHTextBox";
-            this.ScreenHTextBox.Size = new System.Drawing.Size(100, 21);
-            this.ScreenHTextBox.TabIndex = 16;
             // 
             // ScreenHLabel
             // 
@@ -155,13 +123,6 @@
             this.ScreenHLabel.Text = "Screen H";
             this.ScreenHLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // OutputHTextBox
-            // 
-            this.OutputHTextBox.Location = new System.Drawing.Point(262, 132);
-            this.OutputHTextBox.Name = "OutputHTextBox";
-            this.OutputHTextBox.Size = new System.Drawing.Size(100, 21);
-            this.OutputHTextBox.TabIndex = 22;
-            // 
             // OutputHLabel
             // 
             this.OutputHLabel.Location = new System.Drawing.Point(190, 136);
@@ -170,13 +131,6 @@
             this.OutputHLabel.TabIndex = 21;
             this.OutputHLabel.Text = "Output H";
             this.OutputHLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // OutputWTextBox
-            // 
-            this.OutputWTextBox.Location = new System.Drawing.Point(262, 92);
-            this.OutputWTextBox.Name = "OutputWTextBox";
-            this.OutputWTextBox.Size = new System.Drawing.Size(100, 21);
-            this.OutputWTextBox.TabIndex = 20;
             // 
             // OutputWLabel
             // 
@@ -204,13 +158,6 @@
             this.FontColorLabel.TabIndex = 28;
             this.FontColorLabel.Text = "Font Color";
             this.FontColorLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // FontSizeTextBox
-            // 
-            this.FontSizeTextBox.Location = new System.Drawing.Point(441, 52);
-            this.FontSizeTextBox.Name = "FontSizeTextBox";
-            this.FontSizeTextBox.Size = new System.Drawing.Size(100, 21);
-            this.FontSizeTextBox.TabIndex = 27;
             // 
             // FontSizeLabel
             // 
@@ -297,11 +244,128 @@
             this.SourceLangDropdown.Size = new System.Drawing.Size(100, 20);
             this.SourceLangDropdown.TabIndex = 42;
             // 
+            // ScreenXNumBox
+            // 
+            this.ScreenXNumBox.Location = new System.Drawing.Point(84, 13);
+            this.ScreenXNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.ScreenXNumBox.Name = "ScreenXNumBox";
+            this.ScreenXNumBox.Size = new System.Drawing.Size(100, 21);
+            this.ScreenXNumBox.TabIndex = 44;
+            // 
+            // ScreenYNumBox
+            // 
+            this.ScreenYNumBox.Location = new System.Drawing.Point(84, 52);
+            this.ScreenYNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.ScreenYNumBox.Name = "ScreenYNumBox";
+            this.ScreenYNumBox.Size = new System.Drawing.Size(100, 21);
+            this.ScreenYNumBox.TabIndex = 45;
+            // 
+            // ScreenWNumBox
+            // 
+            this.ScreenWNumBox.Location = new System.Drawing.Point(84, 92);
+            this.ScreenWNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.ScreenWNumBox.Name = "ScreenWNumBox";
+            this.ScreenWNumBox.Size = new System.Drawing.Size(100, 21);
+            this.ScreenWNumBox.TabIndex = 46;
+            // 
+            // ScreenHNumBox
+            // 
+            this.ScreenHNumBox.Location = new System.Drawing.Point(84, 133);
+            this.ScreenHNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.ScreenHNumBox.Name = "ScreenHNumBox";
+            this.ScreenHNumBox.Size = new System.Drawing.Size(100, 21);
+            this.ScreenHNumBox.TabIndex = 47;
+            // 
+            // OutputHNumBox
+            // 
+            this.OutputHNumBox.Location = new System.Drawing.Point(262, 132);
+            this.OutputHNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.OutputHNumBox.Name = "OutputHNumBox";
+            this.OutputHNumBox.Size = new System.Drawing.Size(100, 21);
+            this.OutputHNumBox.TabIndex = 51;
+            // 
+            // OutputWNumBox
+            // 
+            this.OutputWNumBox.Location = new System.Drawing.Point(262, 91);
+            this.OutputWNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.OutputWNumBox.Name = "OutputWNumBox";
+            this.OutputWNumBox.Size = new System.Drawing.Size(100, 21);
+            this.OutputWNumBox.TabIndex = 50;
+            // 
+            // OutputYNumBox
+            // 
+            this.OutputYNumBox.Location = new System.Drawing.Point(262, 51);
+            this.OutputYNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.OutputYNumBox.Name = "OutputYNumBox";
+            this.OutputYNumBox.Size = new System.Drawing.Size(100, 21);
+            this.OutputYNumBox.TabIndex = 49;
+            // 
+            // OutputXNumBox
+            // 
+            this.OutputXNumBox.Location = new System.Drawing.Point(262, 12);
+            this.OutputXNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.OutputXNumBox.Name = "OutputXNumBox";
+            this.OutputXNumBox.Size = new System.Drawing.Size(100, 21);
+            this.OutputXNumBox.TabIndex = 48;
+            // 
+            // FontSizeNumBox
+            // 
+            this.FontSizeNumBox.Location = new System.Drawing.Point(441, 51);
+            this.FontSizeNumBox.Maximum = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.FontSizeNumBox.Name = "FontSizeNumBox";
+            this.FontSizeNumBox.Size = new System.Drawing.Size(100, 21);
+            this.FontSizeNumBox.TabIndex = 52;
+            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 227);
+            this.Controls.Add(this.FontSizeNumBox);
+            this.Controls.Add(this.OutputHNumBox);
+            this.Controls.Add(this.OutputWNumBox);
+            this.Controls.Add(this.OutputYNumBox);
+            this.Controls.Add(this.OutputXNumBox);
+            this.Controls.Add(this.ScreenHNumBox);
+            this.Controls.Add(this.ScreenWNumBox);
+            this.Controls.Add(this.ScreenYNumBox);
+            this.Controls.Add(this.ScreenXNumBox);
             this.Controls.Add(this.TargetLangDropdown);
             this.Controls.Add(this.SourceLangDropdown);
             this.Controls.Add(this.BGColorDropdown);
@@ -312,52 +376,42 @@
             this.Controls.Add(this.SourceLangLabel);
             this.Controls.Add(this.BGColorLabel);
             this.Controls.Add(this.FontColorLabel);
-            this.Controls.Add(this.FontSizeTextBox);
             this.Controls.Add(this.FontSizeLabel);
             this.Controls.Add(this.FontLabel);
-            this.Controls.Add(this.OutputHTextBox);
             this.Controls.Add(this.OutputHLabel);
-            this.Controls.Add(this.OutputWTextBox);
             this.Controls.Add(this.OutputWLabel);
-            this.Controls.Add(this.ScreenHTextBox);
             this.Controls.Add(this.ScreenHLabel);
-            this.Controls.Add(this.ScreenWTextBox);
             this.Controls.Add(this.ScreenWLabel);
-            this.Controls.Add(this.OutputYTextBox);
             this.Controls.Add(this.OutputYLabel);
-            this.Controls.Add(this.OutputXTextBox);
             this.Controls.Add(this.OutputXLabel);
-            this.Controls.Add(this.ScreenYTextBox);
             this.Controls.Add(this.ScreenYLabel);
-            this.Controls.Add(this.ScreenXTextBox);
             this.Controls.Add(this.SaveButton);
             this.Name = "ConfigEditor";
             this.Text = "ConfigEditor";
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenXNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenYNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenWNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ScreenHNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputHNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputWNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputYNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.OutputXNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FontSizeNumBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button SaveButton;
-        private System.Windows.Forms.TextBox ScreenXTextBox;
-        private System.Windows.Forms.TextBox ScreenYTextBox;
         private System.Windows.Forms.Label ScreenYLabel;
-        private System.Windows.Forms.TextBox OutputYTextBox;
         private System.Windows.Forms.Label OutputYLabel;
-        private System.Windows.Forms.TextBox OutputXTextBox;
         private System.Windows.Forms.Label OutputXLabel;
-        private System.Windows.Forms.TextBox ScreenWTextBox;
         private System.Windows.Forms.Label ScreenWLabel;
-        private System.Windows.Forms.TextBox ScreenHTextBox;
         private System.Windows.Forms.Label ScreenHLabel;
-        private System.Windows.Forms.TextBox OutputHTextBox;
         private System.Windows.Forms.Label OutputHLabel;
-        private System.Windows.Forms.TextBox OutputWTextBox;
         private System.Windows.Forms.Label OutputWLabel;
         private System.Windows.Forms.Label BGColorLabel;
         private System.Windows.Forms.Label FontColorLabel;
-        private System.Windows.Forms.TextBox FontSizeTextBox;
         private System.Windows.Forms.Label FontSizeLabel;
         private System.Windows.Forms.Label FontLabel;
         private System.Windows.Forms.Label TargetLangLabel;
@@ -368,5 +422,14 @@
         private System.Windows.Forms.ComboBox BGColorDropdown;
         private System.Windows.Forms.ComboBox TargetLangDropdown;
         private System.Windows.Forms.ComboBox SourceLangDropdown;
+        private System.Windows.Forms.NumericUpDown ScreenXNumBox;
+        private System.Windows.Forms.NumericUpDown ScreenYNumBox;
+        private System.Windows.Forms.NumericUpDown ScreenWNumBox;
+        private System.Windows.Forms.NumericUpDown ScreenHNumBox;
+        private System.Windows.Forms.NumericUpDown OutputHNumBox;
+        private System.Windows.Forms.NumericUpDown OutputWNumBox;
+        private System.Windows.Forms.NumericUpDown OutputYNumBox;
+        private System.Windows.Forms.NumericUpDown OutputXNumBox;
+        private System.Windows.Forms.NumericUpDown FontSizeNumBox;
     }
 }

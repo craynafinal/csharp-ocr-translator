@@ -7,8 +7,6 @@ namespace BackgroundApp
     /// </summary>
     public enum LanguageCode
     {
-        [Description("auto")]
-        AUTOMATIC,
         [Description("ko")]
         KOREAN,
         [Description("en")]

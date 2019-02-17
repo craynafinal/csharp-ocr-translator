@@ -79,7 +79,8 @@ namespace DesktopApp
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            var configEditor = new ConfigEditor(configuration);
+            configEditor.Show();
         }
 
         private void button5_Click(object sender, EventArgs e)
