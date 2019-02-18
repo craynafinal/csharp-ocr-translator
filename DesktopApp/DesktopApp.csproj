@@ -124,7 +124,6 @@
     </Compile>
     <Compile Include="Pocos\DesktopBitmapData.cs" />
     <Compile Include="Processors\Dictionary.cs" />
-    <Compile Include="Processors\ImageFilter.cs" />
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
