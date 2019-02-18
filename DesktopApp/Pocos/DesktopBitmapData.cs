@@ -1,22 +1,27 @@
 ﻿using AForge;
 using AForge.Imaging.Filters;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
-namespace DesktopApp.Filters
+namespace DesktopApp.Pocos
 {
     /// <summary>
-    /// Collection of image filters.
-    /// The main reason of this class is to separate all image related functions from form classes.
+    /// Collection of bitmap image data to send to ocr engine.
     /// </summary>
-    class ImageFilter
+    class DesktopBitmapData
     {
+        public Bitmap Bitmap { get; set; }
+        public MemoryStream MemoryStream { get; set; }
+        public Graphics Graphics { get; set; }
+
         /// <summary>
         /// Convert image to grayscale.
         /// </summary>
         /// <param name="bitmap"></param>
-        public static void ConvertBitmapToGrayscale(Bitmap bitmap)
+        public void ConvertBitmapToGrayscale()
         {
-            AdjustBitmapSaturation(bitmap, new Range(0, 0));
+            AdjustBitmapSaturation(new Range(0, 0));
         }
 
         /// <summary>
@@ -24,11 +29,11 @@ namespace DesktopApp.Filters
         /// </summary>
         /// <param name="bitmap"></param>
         /// <param name="range"></param>
-        public static void AdjustBitmapSaturation(Bitmap bitmap, Range range)
+        public void AdjustBitmapSaturation(Range range)
         {
             HSLLinear grayscaleFilter = new HSLLinear();
             grayscaleFilter.OutSaturation = range;
-            grayscaleFilter.ApplyInPlace(bitmap);
+            grayscaleFilter.ApplyInPlace(Bitmap);
         }
 
         /// <summary>
@@ -36,10 +41,10 @@ namespace DesktopApp.Filters
         /// </summary>
         /// <param name="bitmap"></param>
         /// <param name="value"></param>
-        public static void AdjustBitmapContrast(Bitmap bitmap, int value)
+        public void AdjustBitmapContrast(int value)
         {
             ContrastCorrection contrastFilter = new ContrastCorrection(value);
-            contrastFilter.ApplyInPlace(bitmap);
+            contrastFilter.ApplyInPlace(Bitmap);
         }
 
         /// <summary>
@@ -47,10 +52,18 @@ namespace DesktopApp.Filters
         /// </summary>
         /// <param name="bitmap"></param>
         /// <param name="value"></param>
-        public static void AdjustBitmapBrightness(Bitmap bitmap, int value)
+        public void AdjustBitmapBrightness(int value)
         {
             BrightnessCorrection brightnessFilter = new BrightnessCorrection(value);
-            brightnessFilter.ApplyInPlace(bitmap);
+            brightnessFilter.ApplyInPlace(Bitmap);
+        }
+
+        /// <summary>
+        /// Apply changes of bitmap to memory stream.
+        /// </summary>
+        public void ApplyBitmapToMemory()
+        {
+            Bitmap.Save(MemoryStream, ImageFormat.Bmp);
         }
     }
 }

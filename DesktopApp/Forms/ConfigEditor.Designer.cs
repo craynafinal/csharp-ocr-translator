@@ -58,6 +58,13 @@
             this.OutputXNumBox = new System.Windows.Forms.NumericUpDown();
             this.FontSizeNumBox = new System.Windows.Forms.NumericUpDown();
             this.NotificationLabel = new System.Windows.Forms.Label();
+            this.BrightnessTrackBar = new System.Windows.Forms.TrackBar();
+            this.ImagePreview = new System.Windows.Forms.PictureBox();
+            this.OCRImageLabel = new System.Windows.Forms.Label();
+            this.BrightnessLabel = new System.Windows.Forms.Label();
+            this.ContrastLabel = new System.Windows.Forms.Label();
+            this.ContrastTrackBar = new System.Windows.Forms.TrackBar();
+            this.GrayscaleCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenXNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenYNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenWNumBox)).BeginInit();
@@ -67,11 +74,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.OutputYNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputXNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FontSizeNumBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BrightnessTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImagePreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ContrastTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveButton
             // 
-            this.SaveButton.Location = new System.Drawing.Point(645, 186);
+            this.SaveButton.Location = new System.Drawing.Point(645, 439);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 1;
@@ -277,9 +287,19 @@
             0,
             0,
             0});
+            this.ScreenWNumBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.ScreenWNumBox.Name = "ScreenWNumBox";
             this.ScreenWNumBox.Size = new System.Drawing.Size(100, 21);
             this.ScreenWNumBox.TabIndex = 46;
+            this.ScreenWNumBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // ScreenHNumBox
             // 
@@ -289,9 +309,19 @@
             0,
             0,
             0});
+            this.ScreenHNumBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.ScreenHNumBox.Name = "ScreenHNumBox";
             this.ScreenHNumBox.Size = new System.Drawing.Size(100, 21);
             this.ScreenHNumBox.TabIndex = 47;
+            this.ScreenHNumBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // OutputHNumBox
             // 
@@ -301,9 +331,19 @@
             0,
             0,
             0});
+            this.OutputHNumBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.OutputHNumBox.Name = "OutputHNumBox";
             this.OutputHNumBox.Size = new System.Drawing.Size(100, 21);
             this.OutputHNumBox.TabIndex = 51;
+            this.OutputHNumBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // OutputWNumBox
             // 
@@ -313,9 +353,19 @@
             0,
             0,
             0});
+            this.OutputWNumBox.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.OutputWNumBox.Name = "OutputWNumBox";
             this.OutputWNumBox.Size = new System.Drawing.Size(100, 21);
             this.OutputWNumBox.TabIndex = 50;
+            this.OutputWNumBox.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // OutputYNumBox
             // 
@@ -361,11 +411,85 @@
             this.NotificationLabel.Size = new System.Drawing.Size(0, 12);
             this.NotificationLabel.TabIndex = 53;
             // 
+            // BrightnessTrackBar
+            // 
+            this.BrightnessTrackBar.Location = new System.Drawing.Point(294, 240);
+            this.BrightnessTrackBar.Maximum = 255;
+            this.BrightnessTrackBar.Minimum = -255;
+            this.BrightnessTrackBar.Name = "BrightnessTrackBar";
+            this.BrightnessTrackBar.Size = new System.Drawing.Size(426, 45);
+            this.BrightnessTrackBar.TabIndex = 54;
+            this.BrightnessTrackBar.Scroll += new System.EventHandler(this.BrightnessTrackBar_Scroll);
+            // 
+            // ImagePreview
+            // 
+            this.ImagePreview.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.ImagePreview.Location = new System.Drawing.Point(15, 212);
+            this.ImagePreview.Name = "ImagePreview";
+            this.ImagePreview.Size = new System.Drawing.Size(250, 250);
+            this.ImagePreview.TabIndex = 55;
+            this.ImagePreview.TabStop = false;
+            // 
+            // OCRImageLabel
+            // 
+            this.OCRImageLabel.AutoSize = true;
+            this.OCRImageLabel.Location = new System.Drawing.Point(13, 186);
+            this.OCRImageLabel.Name = "OCRImageLabel";
+            this.OCRImageLabel.Size = new System.Drawing.Size(399, 12);
+            this.OCRImageLabel.TabIndex = 56;
+            this.OCRImageLabel.Text = "Image Preview (Will show first 250 px x 250 px of the example image)";
+            // 
+            // BrightnessLabel
+            // 
+            this.BrightnessLabel.AutoSize = true;
+            this.BrightnessLabel.Location = new System.Drawing.Point(294, 212);
+            this.BrightnessLabel.Name = "BrightnessLabel";
+            this.BrightnessLabel.Size = new System.Drawing.Size(65, 12);
+            this.BrightnessLabel.TabIndex = 57;
+            this.BrightnessLabel.Text = "Brightness";
+            // 
+            // ContrastLabel
+            // 
+            this.ContrastLabel.AutoSize = true;
+            this.ContrastLabel.Location = new System.Drawing.Point(294, 295);
+            this.ContrastLabel.Name = "ContrastLabel";
+            this.ContrastLabel.Size = new System.Drawing.Size(52, 12);
+            this.ContrastLabel.TabIndex = 59;
+            this.ContrastLabel.Text = "Contrast";
+            // 
+            // ContrastTrackBar
+            // 
+            this.ContrastTrackBar.Location = new System.Drawing.Point(294, 323);
+            this.ContrastTrackBar.Maximum = 255;
+            this.ContrastTrackBar.Minimum = -255;
+            this.ContrastTrackBar.Name = "ContrastTrackBar";
+            this.ContrastTrackBar.Size = new System.Drawing.Size(426, 45);
+            this.ContrastTrackBar.TabIndex = 58;
+            this.ContrastTrackBar.Scroll += new System.EventHandler(this.ContrastTrackBar_Scroll);
+            // 
+            // GrayscaleCheckBox
+            // 
+            this.GrayscaleCheckBox.AutoSize = true;
+            this.GrayscaleCheckBox.Location = new System.Drawing.Point(296, 439);
+            this.GrayscaleCheckBox.Name = "GrayscaleCheckBox";
+            this.GrayscaleCheckBox.Size = new System.Drawing.Size(82, 16);
+            this.GrayscaleCheckBox.TabIndex = 61;
+            this.GrayscaleCheckBox.Text = "Grayscale";
+            this.GrayscaleCheckBox.UseVisualStyleBackColor = true;
+            this.GrayscaleCheckBox.CheckedChanged += new System.EventHandler(this.GrayscaleCheckBox_CheckedChanged);
+            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(741, 227);
+            this.ClientSize = new System.Drawing.Size(741, 481);
+            this.Controls.Add(this.GrayscaleCheckBox);
+            this.Controls.Add(this.ContrastLabel);
+            this.Controls.Add(this.ContrastTrackBar);
+            this.Controls.Add(this.BrightnessLabel);
+            this.Controls.Add(this.OCRImageLabel);
+            this.Controls.Add(this.ImagePreview);
+            this.Controls.Add(this.BrightnessTrackBar);
             this.Controls.Add(this.NotificationLabel);
             this.Controls.Add(this.FontSizeNumBox);
             this.Controls.Add(this.OutputHNumBox);
@@ -410,6 +534,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.OutputYNumBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.OutputXNumBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.FontSizeNumBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BrightnessTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ImagePreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ContrastTrackBar)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,5 +573,12 @@
         private System.Windows.Forms.NumericUpDown OutputXNumBox;
         private System.Windows.Forms.NumericUpDown FontSizeNumBox;
         private System.Windows.Forms.Label NotificationLabel;
+        private System.Windows.Forms.TrackBar BrightnessTrackBar;
+        private System.Windows.Forms.PictureBox ImagePreview;
+        private System.Windows.Forms.Label OCRImageLabel;
+        private System.Windows.Forms.Label BrightnessLabel;
+        private System.Windows.Forms.Label ContrastLabel;
+        private System.Windows.Forms.TrackBar ContrastTrackBar;
+        private System.Windows.Forms.CheckBox GrayscaleCheckBox;
     }
 }

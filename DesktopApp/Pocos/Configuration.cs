@@ -25,13 +25,17 @@ namespace DesktopApp.Poco
             {
                 /* some default settings */
                 IsScreenshotAreaSet = false;
-                IsOutputAreaSet = false;
                 Font = "Arial";
                 FontSize = 16;
                 SourceLanguage = LanguageCode.ENGLISH;
                 TargetLanguage = LanguageCode.KOREAN;
                 FontColor = Color.Black;
                 BackgroundColor = Color.White;
+                Brightness = 0;
+                Contrast = 0;
+                ScreenshotX = ScreenshotY = OutputX = OutputY = 0;
+                ScreenshotWidth = ScreenshotHeight = OutputWidth = OutputHeight = 200;
+                IsGrayscale = true;
                 Save();
             }
             else
@@ -152,10 +156,14 @@ namespace DesktopApp.Poco
         public int OutputY { get; set; }
         public int OutputWidth { get; set; }
         public int OutputHeight { get; set; }
-        public bool IsOutputAreaSet { get; set; }
 
         /* language setting */
         public LanguageCode SourceLanguage { get; set; }
         public LanguageCode TargetLanguage { get; set; }
+
+        /* contrast setting */
+        public int Brightness { get; set; }
+        public int Contrast { get; set; }
+        public bool IsGrayscale { get; set; }
     }
 }

@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using System.Linq;
 using System;
 using BackgroundApp;
+using DesktopApp.Processors;
+using DesktopApp.Pocos;
 
 namespace DesktopApp.Forms
 {
@@ -13,6 +15,7 @@ namespace DesktopApp.Forms
     public partial class ConfigEditor : Form
     {
         private Configuration configuration;
+        private DesktopBitmapData desktopBitmapData;
 
         public ConfigEditor(Configuration configuration)
         {
@@ -45,6 +48,20 @@ namespace DesktopApp.Forms
             SourceLangDropdown.Text = configuration.SourceLanguage.ToString();
             TargetLangDropdown.Text = configuration.TargetLanguage.ToString();
 
+            BrightnessTrackBar.Value = configuration.Brightness;
+            ContrastTrackBar.Value = configuration.Contrast;
+            GrayscaleCheckBox.Checked = configuration.IsGrayscale;
+            UpdateBrightnessLabel(BrightnessTrackBar.Value);
+            UpdateContrastLabel(ContrastTrackBar.Value);
+
+            desktopBitmapData = ImageGrabber.ReadFromDesktop(configuration);
+            if (configuration.IsGrayscale)
+            {
+                desktopBitmapData.ConvertBitmapToGrayscale();
+            }
+            ImagePreview.Image = desktopBitmapData.Bitmap;
+            ImagePreview.Invalidate();
+
             this.configuration = configuration;
         }
 
@@ -70,6 +87,10 @@ namespace DesktopApp.Forms
             Enum.TryParse(TargetLangDropdown.Text, out LanguageCode targetLang);
             configuration.TargetLanguage = targetLang;
 
+            configuration.Brightness = BrightnessTrackBar.Value;
+            configuration.Contrast = ContrastTrackBar.Value;
+            configuration.IsGrayscale = GrayscaleCheckBox.Checked;
+
             if (configuration.Save())
             {
                 NotificationLabel.Text = "Saved Successfully...";
@@ -88,6 +109,57 @@ namespace DesktopApp.Forms
                 NotificationLabel.Text = "";
                 timer.Dispose();
             };
+        }
+
+        private void BrightnessTrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (configuration != null) {
+                UpdateBrightnessLabel(BrightnessTrackBar.Value);
+                desktopBitmapData = ImageGrabber.ReadFromDesktop(configuration);
+                desktopBitmapData.AdjustBitmapBrightness(BrightnessTrackBar.Value);
+                ImagePreview.Image = desktopBitmapData.Bitmap;
+                ImagePreview.Invalidate();
+            }
+        }
+
+        private void UpdateBrightnessLabel(int value)
+        {
+            BrightnessLabel.Text = "Brightness (" + value + ")";
+        }
+
+        private void ContrastTrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (configuration != null)
+            {
+                UpdateContrastLabel(ContrastTrackBar.Value);
+                desktopBitmapData = ImageGrabber.ReadFromDesktop(configuration);
+                desktopBitmapData.AdjustBitmapContrast(ContrastTrackBar.Value);
+                ImagePreview.Image = desktopBitmapData.Bitmap;
+                ImagePreview.Invalidate();
+            }
+        }
+
+        private void UpdateContrastLabel(int value)
+        {
+            ContrastLabel.Text = "Contrast (" + value + ")";
+        }
+
+        private void GrayscaleCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (configuration != null)
+            {
+                desktopBitmapData = ImageGrabber.ReadFromDesktop(configuration);
+
+                if (GrayscaleCheckBox.Checked)
+                {
+                    desktopBitmapData.ConvertBitmapToGrayscale();
+                }
+
+                desktopBitmapData.AdjustBitmapBrightness(BrightnessTrackBar.Value);
+                desktopBitmapData.AdjustBitmapContrast(ContrastTrackBar.Value);
+                ImagePreview.Image = desktopBitmapData.Bitmap;
+                ImagePreview.Invalidate();
+            }
         }
     }
 }

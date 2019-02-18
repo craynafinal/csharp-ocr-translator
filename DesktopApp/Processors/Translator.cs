@@ -69,7 +69,7 @@ namespace DesktopApp.Processors
                 Thread.CurrentThread.IsBackground = true;
                 while (true)
                 {
-                    var task = TranslateBitmapText(ReadFromDesktop(configuration), configuration);
+                    var task = TranslateBitmapText(ImageGrabber.ReadFromDesktop(configuration), configuration);
                     task.Wait();
                     output.SetTextBox(task.Result);
                     Thread.Sleep(500);
@@ -79,42 +79,6 @@ namespace DesktopApp.Processors
             translationThread.Start();
         }
 
-        private DesktopBitmapData ReadFromDesktop(Configuration configuration)
-        {
-            if (!configuration.IsScreenshotAreaSet)
-            {
-                throw new Exception("Initialize screen focus first!");
-            }
-
-            MemoryStream memoryStream = new MemoryStream();
-
-            var bitmap = new Bitmap(configuration.ScreenshotWidth, configuration.ScreenshotHeight, PixelFormat.Format32bppArgb);
-            Graphics graphics = Graphics.FromImage(bitmap);
-
-            //Drawing.GetInstance().HideGraphic();
-
-            graphics.CopyFromScreen(configuration.ScreenshotX, configuration.ScreenshotY, 0, 0,
-                new Size(configuration.ScreenshotWidth, configuration.ScreenshotHeight), CopyPixelOperation.SourceCopy);
-
-            //Drawing.GetInstance().Redraw(configuration);
-
-            ImageFilter.ConvertBitmapToGrayscale(bitmap);
-            ImageFilter.AdjustBitmapBrightness(bitmap, -50);
-            ImageFilter.AdjustBitmapContrast(bitmap, 50);
-
-            bitmap.Save(memoryStream, ImageFormat.Bmp);
-
-            // TODO: for debugging purpose, remove it later
-            bitmap.Save("D:\\Data\\Downloads\\Temp\\temp\\debugging.jpg");
-
-            DesktopBitmapData bitmapData = new DesktopBitmapData();
-            bitmapData.Bitmap = bitmap;
-            bitmapData.Graphics = graphics;
-            bitmapData.MemoryStream = memoryStream;
-
-            return bitmapData;
-        }
-
         private async Task<string> TranslateBitmapText(DesktopBitmapData desktopBitmapData, Configuration configuration)
         {
             var language = configuration.GetSourceLanguage();
@@ -122,6 +86,11 @@ namespace DesktopApp.Processors
             {
                 throw new Exception($"{ language.LanguageTag } is not supported in this system.");
             }
+
+            desktopBitmapData.ConvertBitmapToGrayscale();
+            desktopBitmapData.AdjustBitmapBrightness(configuration.Brightness);
+            desktopBitmapData.AdjustBitmapContrast(configuration.Contrast);
+            desktopBitmapData.ApplyBitmapToMemory();
 
             var decoder = await BitmapDecoder.CreateAsync(desktopBitmapData.MemoryStream.AsRandomAccessStream());
             var softwareBitmap = await decoder.GetSoftwareBitmapAsync();

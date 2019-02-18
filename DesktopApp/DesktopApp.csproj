@@ -122,10 +122,9 @@
     <Compile Include="Forms\Output.Designer.cs">
       <DependentUpon>Output.cs</DependentUpon>
     </Compile>
-    <Compile Include="Pocos\BitmapData.cs" />
+    <Compile Include="Pocos\DesktopBitmapData.cs" />
     <Compile Include="Processors\Dictionary.cs" />
-    <Compile Include="Processors\Drawing.cs" />
-    <Compile Include="Filters\ImageFilter.cs" />
+    <Compile Include="Processors\ImageFilter.cs" />
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +133,7 @@
     </Compile>
     <Compile Include="KeyHooks\GlobalKeyHook.cs" />
     <Compile Include="Pocos\Configuration.cs" />
+    <Compile Include="Processors\ImageGrabber.cs" />
     <Compile Include="Processors\Translator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
