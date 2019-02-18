@@ -173,6 +173,7 @@
             this.Controls.Add(this.SetTargetButton);
             this.Controls.Add(this.DictionaryButton);
             this.Controls.Add(this.ConfigButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "Main";
             this.Text = "OCR Translator";

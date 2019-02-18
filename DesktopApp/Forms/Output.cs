@@ -1,9 +1,7 @@
 ﻿using DesktopApp.Poco;
 using System;
 using System.Drawing;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Windows.Foundation;
 
 namespace DesktopApp.Forms
 {
@@ -14,15 +12,6 @@ namespace DesktopApp.Forms
         public Output(Configuration configuration)
         {
             InitializeComponent(configuration.OutputX, configuration.OutputY, configuration.OutputWidth, configuration.OutputHeight);
-            //Top = configuration.OutputX;
-            //Left = configuration.OutputY;
-            //Width = configuration.OutputWidth;
-            //Height = configuration.OutputHeight;
-            //OutputTextBox.Width = Width;
-            //OutputTextBox.Height = Height;
-            //OutputTextBox.Top = 0;
-            //OutputTextBox.Left = 0;
-
             this.configuration = configuration;
         }
 

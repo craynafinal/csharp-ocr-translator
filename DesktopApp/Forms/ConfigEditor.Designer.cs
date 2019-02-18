@@ -396,6 +396,9 @@
             this.Controls.Add(this.OutputXLabel);
             this.Controls.Add(this.ScreenYLabel);
             this.Controls.Add(this.SaveButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ConfigEditor";
             this.Text = "ConfigEditor";
             ((System.ComponentModel.ISupportInitialize)(this.ScreenXNumBox)).EndInit();

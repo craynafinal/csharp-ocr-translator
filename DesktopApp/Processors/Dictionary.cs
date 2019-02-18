@@ -33,7 +33,7 @@ namespace DesktopApp.Processors
             } else
             {
                 string allLines = File.ReadAllText(GetFullFilePath(), Encoding.UTF8);
-                foreach (string line in allLines.Split(new string[] { "\r\n" }, StringSplitOptions.None))
+                foreach (string line in allLines.Split(new string[] { "\n" }, StringSplitOptions.None))
                 {
                     string[] tokens = line.Split('#');
                     dictionary.Add(tokens[0].Trim(), tokens[1].Trim());
