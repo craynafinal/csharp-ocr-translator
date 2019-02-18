@@ -64,12 +64,6 @@ namespace DesktopApp.Poco
                     }
                 }
             }
-
-            /* debugging purpose */
-            OutputX = 50;
-            OutputY = 50;
-            OutputWidth = 200;
-            OutputHeight = 200;
         }
 
         /// <summary>
@@ -98,7 +92,7 @@ namespace DesktopApp.Poco
 
                 File.WriteAllText(GetFullFilePath(), stringBuilder.ToString(), Encoding.Unicode);
                 
-            } catch (Exception e)
+            } catch (Exception)
             {
                 result = false;
             }

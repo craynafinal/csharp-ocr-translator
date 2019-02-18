@@ -70,33 +70,47 @@ namespace DesktopApp
             screenForm.Show();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void OpenDictionaryEditor()
         {
             var dictionaryEditor = new DictionaryEditor();
             dictionaryEditor.Show();
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void OpenConfigEditor(Configuration configuration)
         {
             var configEditor = new ConfigEditor(configuration);
             configEditor.Show();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void ConfigButton_Click(object sender, EventArgs e)
         {
+            OpenConfigEditor(configuration);
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void DictionaryButton_Click(object sender, EventArgs e)
         {
+            OpenDictionaryEditor();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void SetTargetButton_Click(object sender, EventArgs e)
         {
+            OpenScreenGrabber(configuration);
+        }
+
+        private void OutputButton_Click(object sender, EventArgs e)
+        {
+            output = new Output(configuration);
+            output.Show();
+        }
+
+        private void RunButton_Click(object sender, EventArgs e)
+        {
+            translator.Run(configuration, output);
+        }
+
+        private void StopButton_Click(object sender, EventArgs e)
+        {
+            translator.Abort();
         }
     }
 }

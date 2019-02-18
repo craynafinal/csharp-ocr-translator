@@ -1,7 +1,9 @@
 ﻿using DesktopApp.Poco;
 using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Windows.Foundation;
 
 namespace DesktopApp.Forms
 {
@@ -11,15 +13,15 @@ namespace DesktopApp.Forms
 
         public Output(Configuration configuration)
         {
-            InitializeComponent();
-            Top = configuration.OutputX;
-            Left = configuration.OutputY;
-            Width = configuration.OutputWidth;
-            Height = configuration.OutputHeight;
-            OutputTextBox.Width = Width;
-            OutputTextBox.Height = Height;
-            OutputTextBox.Top = 0;
-            OutputTextBox.Left = 0;
+            InitializeComponent(configuration.OutputX, configuration.OutputY, configuration.OutputWidth, configuration.OutputHeight);
+            //Top = configuration.OutputX;
+            //Left = configuration.OutputY;
+            //Width = configuration.OutputWidth;
+            //Height = configuration.OutputHeight;
+            //OutputTextBox.Width = Width;
+            //OutputTextBox.Height = Height;
+            //OutputTextBox.Top = 0;
+            //OutputTextBox.Left = 0;
 
             this.configuration = configuration;
         }
@@ -39,9 +41,17 @@ namespace DesktopApp.Forms
         {
             if (configuration != null)
             {
-                configuration.OutputX = Top;
-                configuration.OutputY = Left;
+                configuration.OutputX = Location.X;
+                configuration.OutputY = Location.Y;
             }
+        }
+
+        private void Output_Closing(object sender, FormClosingEventArgs e)
+        {
+            configuration.OutputWidth = Width;
+            configuration.OutputHeight = Height;
+            configuration.OutputX = Location.X;
+            configuration.OutputY = Location.Y;
         }
 
         /// <summary>

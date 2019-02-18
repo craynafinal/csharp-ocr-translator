@@ -1,4 +1,6 @@
-﻿namespace DesktopApp.Forms
+﻿using System.Windows.Forms;
+
+namespace DesktopApp.Forms
 {
     partial class Output
     {
@@ -26,7 +28,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void InitializeComponent(int x, int y, int width, int height)
         {
             this.OutputTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
@@ -34,22 +36,22 @@
             // OutputTextBox
             // 
             this.OutputTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.OutputTextBox.Location = new System.Drawing.Point(33, 32);
-            this.OutputTextBox.Margin = new System.Windows.Forms.Padding(8);
+            this.OutputTextBox.Location = new System.Drawing.Point(0, 0);
             this.OutputTextBox.Name = "OutputTextBox";
             this.OutputTextBox.ReadOnly = true;
-            this.OutputTextBox.Size = new System.Drawing.Size(1987, 566);
+            this.OutputTextBox.Size = new System.Drawing.Size(width, height);
             this.OutputTextBox.TabIndex = 0;
             this.OutputTextBox.Text = "";
             // 
             // Output
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(18F, 30F);
+            this.StartPosition = FormStartPosition.Manual;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.Location = new System.Drawing.Point(x, y);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2057, 635);
+            this.ClientSize = new System.Drawing.Size(width, height);
             this.Controls.Add(this.OutputTextBox);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Margin = new System.Windows.Forms.Padding(8);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Output";
@@ -60,6 +62,7 @@
             this.Move += new System.EventHandler(this.Output_Move);
             this.Resize += new System.EventHandler(this.Output_Resize);
             this.ResumeLayout(false);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Output_Closing); 
 
         }
 

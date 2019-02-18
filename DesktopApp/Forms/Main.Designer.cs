@@ -28,91 +28,154 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.ConfigButton = new System.Windows.Forms.Button();
+            this.DictionaryButton = new System.Windows.Forms.Button();
+            this.SetTargetButton = new System.Windows.Forms.Button();
+            this.OutputButton = new System.Windows.Forms.Button();
+            this.ConfigLabel = new System.Windows.Forms.Label();
+            this.DictionaryLabel = new System.Windows.Forms.Label();
+            this.SetTargetLabel = new System.Windows.Forms.Label();
+            this.OutputLabel = new System.Windows.Forms.Label();
+            this.StopLabel = new System.Windows.Forms.Label();
+            this.RunLabel = new System.Windows.Forms.Label();
+            this.StopButton = new System.Windows.Forms.Button();
+            this.RunButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // ConfigButton
             // 
-            this.button1.Location = new System.Drawing.Point(173, 61);
-            this.button1.Margin = new System.Windows.Forms.Padding(1);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 9);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ConfigButton.Location = new System.Drawing.Point(13, 13);
+            this.ConfigButton.Name = "ConfigButton";
+            this.ConfigButton.Size = new System.Drawing.Size(75, 23);
+            this.ConfigButton.TabIndex = 0;
+            this.ConfigButton.Text = "Config";
+            this.ConfigButton.UseVisualStyleBackColor = true;
+            this.ConfigButton.Click += new System.EventHandler(this.ConfigButton_Click);
             // 
-            // label1
+            // DictionaryButton
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(59, 22);
-            this.label1.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "하하";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.DictionaryButton.Location = new System.Drawing.Point(13, 51);
+            this.DictionaryButton.Name = "DictionaryButton";
+            this.DictionaryButton.Size = new System.Drawing.Size(75, 23);
+            this.DictionaryButton.TabIndex = 1;
+            this.DictionaryButton.Text = "Dictionary";
+            this.DictionaryButton.UseVisualStyleBackColor = true;
+            this.DictionaryButton.Click += new System.EventHandler(this.DictionaryButton_Click);
             // 
-            // button2
+            // SetTargetButton
             // 
-            this.button2.Location = new System.Drawing.Point(127, 109);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.SetTargetButton.Location = new System.Drawing.Point(13, 89);
+            this.SetTargetButton.Name = "SetTargetButton";
+            this.SetTargetButton.Size = new System.Drawing.Size(75, 23);
+            this.SetTargetButton.TabIndex = 3;
+            this.SetTargetButton.Text = "Set Target";
+            this.SetTargetButton.UseVisualStyleBackColor = true;
+            this.SetTargetButton.Click += new System.EventHandler(this.SetTargetButton_Click);
             // 
-            // button3
+            // OutputButton
             // 
-            this.button3.Location = new System.Drawing.Point(26, 70);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.OutputButton.Location = new System.Drawing.Point(13, 127);
+            this.OutputButton.Name = "OutputButton";
+            this.OutputButton.Size = new System.Drawing.Size(75, 23);
+            this.OutputButton.TabIndex = 5;
+            this.OutputButton.Text = "Output";
+            this.OutputButton.UseVisualStyleBackColor = true;
+            this.OutputButton.Click += new System.EventHandler(this.OutputButton_Click);
             // 
-            // button4
+            // ConfigLabel
             // 
-            this.button4.Location = new System.Drawing.Point(234, 24);
-            this.button4.Margin = new System.Windows.Forms.Padding(1);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(67, 32);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.ConfigLabel.AutoSize = true;
+            this.ConfigLabel.Location = new System.Drawing.Point(94, 18);
+            this.ConfigLabel.Name = "ConfigLabel";
+            this.ConfigLabel.Size = new System.Drawing.Size(131, 12);
+            this.ConfigLabel.TabIndex = 6;
+            this.ConfigLabel.Text = "Configure the program";
             // 
-            // button5
+            // DictionaryLabel
             // 
-            this.button5.Location = new System.Drawing.Point(222, 93);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 5;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.DictionaryLabel.AutoSize = true;
+            this.DictionaryLabel.Location = new System.Drawing.Point(94, 56);
+            this.DictionaryLabel.Name = "DictionaryLabel";
+            this.DictionaryLabel.Size = new System.Drawing.Size(177, 12);
+            this.DictionaryLabel.TabIndex = 7;
+            this.DictionaryLabel.Text = "Force replace with other string";
             // 
-            // Form1
+            // SetTargetLabel
+            // 
+            this.SetTargetLabel.AutoSize = true;
+            this.SetTargetLabel.Location = new System.Drawing.Point(94, 94);
+            this.SetTargetLabel.Name = "SetTargetLabel";
+            this.SetTargetLabel.Size = new System.Drawing.Size(179, 12);
+            this.SetTargetLabel.TabIndex = 8;
+            this.SetTargetLabel.Text = "Set target area (Ctrl + Shift + x)";
+            // 
+            // OutputLabel
+            // 
+            this.OutputLabel.AutoSize = true;
+            this.OutputLabel.Location = new System.Drawing.Point(94, 132);
+            this.OutputLabel.Name = "OutputLabel";
+            this.OutputLabel.Size = new System.Drawing.Size(208, 12);
+            this.OutputLabel.TabIndex = 9;
+            this.OutputLabel.Text = "Open output window again if closed";
+            // 
+            // StopLabel
+            // 
+            this.StopLabel.AutoSize = true;
+            this.StopLabel.Location = new System.Drawing.Point(94, 208);
+            this.StopLabel.Name = "StopLabel";
+            this.StopLabel.Size = new System.Drawing.Size(189, 12);
+            this.StopLabel.TabIndex = 15;
+            this.StopLabel.Text = "Stop Translation (Ctrl + Shift + c)";
+            // 
+            // RunLabel
+            // 
+            this.RunLabel.AutoSize = true;
+            this.RunLabel.Location = new System.Drawing.Point(94, 170);
+            this.RunLabel.Name = "RunLabel";
+            this.RunLabel.Size = new System.Drawing.Size(186, 12);
+            this.RunLabel.TabIndex = 14;
+            this.RunLabel.Text = "Run Translation (Ctrl + Shift + z)";
+            // 
+            // StopButton
+            // 
+            this.StopButton.Location = new System.Drawing.Point(13, 203);
+            this.StopButton.Name = "StopButton";
+            this.StopButton.Size = new System.Drawing.Size(75, 23);
+            this.StopButton.TabIndex = 12;
+            this.StopButton.Text = "Stop";
+            this.StopButton.UseVisualStyleBackColor = true;
+            this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
+            // 
+            // RunButton
+            // 
+            this.RunButton.Location = new System.Drawing.Point(13, 165);
+            this.RunButton.Name = "RunButton";
+            this.RunButton.Size = new System.Drawing.Size(75, 23);
+            this.RunButton.TabIndex = 11;
+            this.RunButton.Text = "Run";
+            this.RunButton.UseVisualStyleBackColor = true;
+            this.RunButton.Click += new System.EventHandler(this.RunButton_Click);
+            // 
+            // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 180);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(311, 241);
+            this.Controls.Add(this.StopLabel);
+            this.Controls.Add(this.RunLabel);
+            this.Controls.Add(this.StopButton);
+            this.Controls.Add(this.RunButton);
+            this.Controls.Add(this.OutputLabel);
+            this.Controls.Add(this.SetTargetLabel);
+            this.Controls.Add(this.DictionaryLabel);
+            this.Controls.Add(this.ConfigLabel);
+            this.Controls.Add(this.OutputButton);
+            this.Controls.Add(this.SetTargetButton);
+            this.Controls.Add(this.DictionaryButton);
+            this.Controls.Add(this.ConfigButton);
             this.Margin = new System.Windows.Forms.Padding(1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "Main";
+            this.Text = "OCR Translator";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,12 +183,18 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button ConfigButton;
+        private System.Windows.Forms.Button DictionaryButton;
+        private System.Windows.Forms.Button SetTargetButton;
+        private System.Windows.Forms.Button OutputButton;
+        private System.Windows.Forms.Label ConfigLabel;
+        private System.Windows.Forms.Label DictionaryLabel;
+        private System.Windows.Forms.Label SetTargetLabel;
+        private System.Windows.Forms.Label OutputLabel;
+        private System.Windows.Forms.Label StopLabel;
+        private System.Windows.Forms.Label RunLabel;
+        private System.Windows.Forms.Button StopButton;
+        private System.Windows.Forms.Button RunButton;
     }
 }
 
