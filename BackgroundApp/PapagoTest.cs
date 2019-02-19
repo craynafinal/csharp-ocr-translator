@@ -28,7 +28,11 @@ namespace BackgroundApp
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("window-size=1920,1080");
             options.AddArgument("headless");
-            IWebDriver webDriver = new ChromeDriver(options);
+
+            var chromeDriverService = ChromeDriverService.CreateDefaultService();
+            chromeDriverService.HideCommandPromptWindow = true;
+
+            IWebDriver webDriver = new ChromeDriver(chromeDriverService, options);
             return webDriver;
         }
 
