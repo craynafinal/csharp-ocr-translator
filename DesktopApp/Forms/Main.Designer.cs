@@ -176,7 +176,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(1);
             this.Name = "Main";
-            this.Text = "OCR Translator";
+            this.Text = "OCR Translator - (C) ChaosDepot";
             this.ResumeLayout(false);
             this.PerformLayout();
 

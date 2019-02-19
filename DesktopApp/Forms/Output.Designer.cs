@@ -58,7 +58,7 @@ namespace DesktopApp.Forms
             this.Name = "Output";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Output";
+            this.Text = "Output - 초맨의 한글 비주얼 노벨 프로젝트";
             this.TopMost = true;
             this.Move += new System.EventHandler(this.Output_Move);
             this.Resize += new System.EventHandler(this.Output_Resize);
