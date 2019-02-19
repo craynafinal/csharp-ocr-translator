@@ -46,10 +46,11 @@ namespace DesktopApp.Forms
             // Output
             // 
             this.StartPosition = FormStartPosition.Manual;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.Location = new System.Drawing.Point(x, y);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(width, height);
+            this.Width = width;
+            this.Height = height;
             this.Controls.Add(this.OutputTextBox);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.MaximizeBox = false;

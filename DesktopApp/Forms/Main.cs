@@ -72,14 +72,20 @@ namespace DesktopApp
 
         private void OpenDictionaryEditor()
         {
-            var dictionaryEditor = new DictionaryEditor();
-            dictionaryEditor.Show();
+            if ((Application.OpenForms["DictionaryEditor"] as DictionaryEditor) == null)
+            {
+                var dictionaryEditor = new DictionaryEditor();
+                dictionaryEditor.Show();
+            }
         }
 
         private void OpenConfigEditor(Configuration configuration)
         {
-            var configEditor = new ConfigEditor(configuration);
-            configEditor.Show();
+            if ((Application.OpenForms["ConfigEditor"] as ConfigEditor) == null)
+            {
+                var configEditor = new ConfigEditor(configuration);
+                configEditor.Show();
+            }
         }
 
         private void ConfigButton_Click(object sender, EventArgs e)
@@ -99,8 +105,11 @@ namespace DesktopApp
 
         private void OutputButton_Click(object sender, EventArgs e)
         {
-            output = new Output(configuration);
-            output.Show();
+            if ((Application.OpenForms["Output"] as Output) == null)
+            {
+                output = new Output(configuration);
+                output.Show();
+            }
         }
 
         private void RunButton_Click(object sender, EventArgs e)

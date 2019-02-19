@@ -1,4 +1,5 @@
-﻿using DesktopApp.Poco;
+﻿using DesktopApp.Forms;
+using DesktopApp.Poco;
 using DesktopApp.Pocos;
 using System;
 using System.Drawing;
@@ -24,16 +25,8 @@ namespace DesktopApp.Processors
             var bitmap = new Bitmap(configuration.ScreenshotWidth, configuration.ScreenshotHeight, PixelFormat.Format32bppArgb);
             Graphics graphics = Graphics.FromImage(bitmap);
 
-            //Drawing.GetInstance().HideGraphic();
-
             graphics.CopyFromScreen(configuration.ScreenshotX, configuration.ScreenshotY, 0, 0,
                 new Size(configuration.ScreenshotWidth, configuration.ScreenshotHeight), CopyPixelOperation.SourceCopy);
-
-            //Drawing.GetInstance().Redraw(configuration);
-
-            //ImageFilter.ConvertBitmapToGrayscale(bitmap);
-            //ImageFilter.AdjustBitmapBrightness(bitmap, -50);
-            //ImageFilter.AdjustBitmapContrast(bitmap, 50);
 
             bitmap.Save(memoryStream, ImageFormat.Bmp);
 
