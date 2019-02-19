@@ -119,13 +119,13 @@ namespace BackgroundApp
             return new Regex("[{}^]").Replace(text, "");
         }
 
-        static void Main(String[] args)
+        static void Main(string[] args)
         {
         }
 
         ~PapagoTest()
         {
-            this.Quit();
+            Quit();
         }
     }
 }
