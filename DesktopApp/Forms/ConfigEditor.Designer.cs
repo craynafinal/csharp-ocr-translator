@@ -57,7 +57,6 @@
             this.OutputYNumBox = new System.Windows.Forms.NumericUpDown();
             this.OutputXNumBox = new System.Windows.Forms.NumericUpDown();
             this.FontSizeNumBox = new System.Windows.Forms.NumericUpDown();
-            this.NotificationLabel = new System.Windows.Forms.Label();
             this.BrightnessTrackBar = new System.Windows.Forms.TrackBar();
             this.ImagePreview = new System.Windows.Forms.PictureBox();
             this.OCRImageLabel = new System.Windows.Forms.Label();
@@ -65,6 +64,7 @@
             this.ContrastLabel = new System.Windows.Forms.Label();
             this.ContrastTrackBar = new System.Windows.Forms.TrackBar();
             this.GrayscaleCheckBox = new System.Windows.Forms.CheckBox();
+            this.NotificationLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenXNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenYNumBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ScreenWNumBox)).BeginInit();
@@ -403,14 +403,6 @@
             this.FontSizeNumBox.Size = new System.Drawing.Size(100, 21);
             this.FontSizeNumBox.TabIndex = 52;
             // 
-            // NotificationLabel
-            // 
-            this.NotificationLabel.AutoSize = true;
-            this.NotificationLabel.Location = new System.Drawing.Point(13, 186);
-            this.NotificationLabel.Name = "NotificationLabel";
-            this.NotificationLabel.Size = new System.Drawing.Size(0, 12);
-            this.NotificationLabel.TabIndex = 53;
-            // 
             // BrightnessTrackBar
             // 
             this.BrightnessTrackBar.Location = new System.Drawing.Point(294, 240);
@@ -478,11 +470,20 @@
             this.GrayscaleCheckBox.UseVisualStyleBackColor = true;
             this.GrayscaleCheckBox.CheckedChanged += new System.EventHandler(this.GrayscaleCheckBox_CheckedChanged);
             // 
+            // NotificationLabel
+            // 
+            this.NotificationLabel.AutoSize = true;
+            this.NotificationLabel.Location = new System.Drawing.Point(471, 444);
+            this.NotificationLabel.Name = "NotificationLabel";
+            this.NotificationLabel.Size = new System.Drawing.Size(0, 12);
+            this.NotificationLabel.TabIndex = 62;
+            // 
             // ConfigEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(741, 481);
+            this.Controls.Add(this.NotificationLabel);
             this.Controls.Add(this.GrayscaleCheckBox);
             this.Controls.Add(this.ContrastLabel);
             this.Controls.Add(this.ContrastTrackBar);
@@ -490,7 +491,6 @@
             this.Controls.Add(this.OCRImageLabel);
             this.Controls.Add(this.ImagePreview);
             this.Controls.Add(this.BrightnessTrackBar);
-            this.Controls.Add(this.NotificationLabel);
             this.Controls.Add(this.FontSizeNumBox);
             this.Controls.Add(this.OutputHNumBox);
             this.Controls.Add(this.OutputWNumBox);
@@ -572,7 +572,6 @@
         private System.Windows.Forms.NumericUpDown OutputYNumBox;
         private System.Windows.Forms.NumericUpDown OutputXNumBox;
         private System.Windows.Forms.NumericUpDown FontSizeNumBox;
-        private System.Windows.Forms.Label NotificationLabel;
         private System.Windows.Forms.TrackBar BrightnessTrackBar;
         private System.Windows.Forms.PictureBox ImagePreview;
         private System.Windows.Forms.Label OCRImageLabel;
@@ -580,5 +579,6 @@
         private System.Windows.Forms.Label ContrastLabel;
         private System.Windows.Forms.TrackBar ContrastTrackBar;
         private System.Windows.Forms.CheckBox GrayscaleCheckBox;
+        private System.Windows.Forms.Label NotificationLabel;
     }
 }
