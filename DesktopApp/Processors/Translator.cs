@@ -76,6 +76,30 @@ namespace DesktopApp.Processors
             translationThread.Start();
         }
 
+        /// <summary>
+        /// Run translation once. Cannot be used when using Run() method.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="output"></param>
+        public void RunOnce(Configuration configuration, Output output)
+        {
+            if (translationThread != null && translationThread.IsAlive)
+            {
+                return;
+            }
+
+            translationThread = new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                var task = TranslateBitmapText(ImageGrabber.ReadFromDesktop(configuration), configuration);
+                task.Wait();
+                output.SetTextBox(task.Result);
+                Thread.Sleep(500);
+            });
+
+            translationThread.Start();
+        }
+
         private async Task<string> TranslateBitmapText(DesktopBitmapData desktopBitmapData, Configuration configuration)
         {
             var language = configuration.GetSourceLanguage();

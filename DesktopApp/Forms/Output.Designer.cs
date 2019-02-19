@@ -28,7 +28,7 @@ namespace DesktopApp.Forms
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent(int x, int y, int width, int height)
+        private void InitializeComponent(int x, int y, int width, int height, int marginRight)
         {
             this.OutputTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
@@ -42,6 +42,7 @@ namespace DesktopApp.Forms
             this.OutputTextBox.Size = new System.Drawing.Size(width, height);
             this.OutputTextBox.TabIndex = 0;
             this.OutputTextBox.Text = "";
+            this.OutputTextBox.RightMargin = width - marginRight;
             // 
             // Output
             // 
@@ -63,8 +64,7 @@ namespace DesktopApp.Forms
             this.Move += new System.EventHandler(this.Output_Move);
             this.Resize += new System.EventHandler(this.Output_Resize);
             this.ResumeLayout(false);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Output_Closing); 
-
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Output_Closing);
         }
 
         #endregion

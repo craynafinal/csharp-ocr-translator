@@ -39,7 +39,9 @@
             this.StopLabel = new System.Windows.Forms.Label();
             this.RunLabel = new System.Windows.Forms.Label();
             this.StopButton = new System.Windows.Forms.Button();
-            this.RunButton = new System.Windows.Forms.Button();
+            this.KeepRunButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.RunOnceButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // ConfigButton
@@ -105,9 +107,9 @@
             this.SetTargetLabel.AutoSize = true;
             this.SetTargetLabel.Location = new System.Drawing.Point(94, 94);
             this.SetTargetLabel.Name = "SetTargetLabel";
-            this.SetTargetLabel.Size = new System.Drawing.Size(179, 12);
+            this.SetTargetLabel.Size = new System.Drawing.Size(146, 12);
             this.SetTargetLabel.TabIndex = 8;
-            this.SetTargetLabel.Text = "Set target area (Ctrl + Shift + x)";
+            this.SetTargetLabel.Text = "Set target area (Shift + x)";
             // 
             // OutputLabel
             // 
@@ -121,24 +123,24 @@
             // StopLabel
             // 
             this.StopLabel.AutoSize = true;
-            this.StopLabel.Location = new System.Drawing.Point(94, 208);
+            this.StopLabel.Location = new System.Drawing.Point(94, 245);
             this.StopLabel.Name = "StopLabel";
-            this.StopLabel.Size = new System.Drawing.Size(189, 12);
+            this.StopLabel.Size = new System.Drawing.Size(155, 12);
             this.StopLabel.TabIndex = 15;
-            this.StopLabel.Text = "Stop Translation (Ctrl + Shift + c)";
+            this.StopLabel.Text = "Stop Translation (Shift + v)";
             // 
             // RunLabel
             // 
             this.RunLabel.AutoSize = true;
-            this.RunLabel.Location = new System.Drawing.Point(94, 170);
+            this.RunLabel.Location = new System.Drawing.Point(94, 207);
             this.RunLabel.Name = "RunLabel";
-            this.RunLabel.Size = new System.Drawing.Size(186, 12);
+            this.RunLabel.Size = new System.Drawing.Size(190, 12);
             this.RunLabel.TabIndex = 14;
-            this.RunLabel.Text = "Run Translation (Ctrl + Shift + z)";
+            this.RunLabel.Text = "Run translation forever (Shift + c)";
             // 
             // StopButton
             // 
-            this.StopButton.Location = new System.Drawing.Point(13, 203);
+            this.StopButton.Location = new System.Drawing.Point(13, 240);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(75, 23);
             this.StopButton.TabIndex = 12;
@@ -146,25 +148,46 @@
             this.StopButton.UseVisualStyleBackColor = true;
             this.StopButton.Click += new System.EventHandler(this.StopButton_Click);
             // 
-            // RunButton
+            // KeepRunButton
             // 
-            this.RunButton.Location = new System.Drawing.Point(13, 165);
-            this.RunButton.Name = "RunButton";
-            this.RunButton.Size = new System.Drawing.Size(75, 23);
-            this.RunButton.TabIndex = 11;
-            this.RunButton.Text = "Run";
-            this.RunButton.UseVisualStyleBackColor = true;
-            this.RunButton.Click += new System.EventHandler(this.RunButton_Click);
+            this.KeepRunButton.Location = new System.Drawing.Point(13, 202);
+            this.KeepRunButton.Name = "KeepRunButton";
+            this.KeepRunButton.Size = new System.Drawing.Size(75, 23);
+            this.KeepRunButton.TabIndex = 11;
+            this.KeepRunButton.Text = "Keep Run";
+            this.KeepRunButton.UseVisualStyleBackColor = true;
+            this.KeepRunButton.Click += new System.EventHandler(this.KeepRunButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(94, 169);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(180, 12);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Run translation once (Shift + z)";
+            // 
+            // RunOnceButton
+            // 
+            this.RunOnceButton.Location = new System.Drawing.Point(13, 164);
+            this.RunOnceButton.Name = "RunOnceButton";
+            this.RunOnceButton.Size = new System.Drawing.Size(75, 23);
+            this.RunOnceButton.TabIndex = 16;
+            this.RunOnceButton.Text = "Run Once";
+            this.RunOnceButton.UseVisualStyleBackColor = true;
+            this.RunOnceButton.Click += new System.EventHandler(this.RunOnceButton_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(311, 241);
+            this.ClientSize = new System.Drawing.Size(311, 285);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.RunOnceButton);
             this.Controls.Add(this.StopLabel);
             this.Controls.Add(this.RunLabel);
             this.Controls.Add(this.StopButton);
-            this.Controls.Add(this.RunButton);
+            this.Controls.Add(this.KeepRunButton);
             this.Controls.Add(this.OutputLabel);
             this.Controls.Add(this.SetTargetLabel);
             this.Controls.Add(this.DictionaryLabel);
@@ -195,7 +218,9 @@
         private System.Windows.Forms.Label StopLabel;
         private System.Windows.Forms.Label RunLabel;
         private System.Windows.Forms.Button StopButton;
-        private System.Windows.Forms.Button RunButton;
+        private System.Windows.Forms.Button KeepRunButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button RunOnceButton;
     }
 }
 

@@ -13,7 +13,7 @@ namespace BackgroundApp
     public class PapagoTest
     {
         private IWebDriver _webDriver;
-        private By _translatedTextArea = By.Id("txtTarget");
+        private readonly By _translatedTextArea = By.Id("txtTarget");
         private const int _waitTime = 20;
         private string previousSourceText;
         private string previousTranslatedText;

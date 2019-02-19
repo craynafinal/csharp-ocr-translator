@@ -16,11 +16,34 @@ namespace DesktopApp
         private Configuration configuration;
         private static ScreenGrabber instance;
 
+        /// <summary>
+        /// Get instance of screen grabber.
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <returns></returns>
+        public static ScreenGrabber GetInstance(Configuration configuration)
+        {
+            if (instance == null)
+            {
+                instance = new ScreenGrabber(configuration);
+            }
+
+            return instance;
+        }
+
         private void ScreenGrabberMouseDown(object sender, MouseEventArgs e)
         {
             isDown = true;
             initialX = e.X;
             initialY = e.Y;
+        }
+
+        private void ScreenGrabberKeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
 
         private void ScreenGrabberMouseMove(object sender, MouseEventArgs e)
@@ -53,16 +76,6 @@ namespace DesktopApp
             configuration.IsScreenshotAreaSet = true;
             instance = null;
             Close();
-        }
-
-        public static ScreenGrabber GetInstance(Configuration configuration)
-        {
-            if (instance == null)
-            {
-                instance = new ScreenGrabber(configuration);
-            }
-
-            return instance;
         }
 
         /// <summary>

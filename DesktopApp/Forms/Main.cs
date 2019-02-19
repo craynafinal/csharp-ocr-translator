@@ -48,19 +48,24 @@ namespace DesktopApp
         /// <param name="e"></param>
         public void GlobalKeyHook_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.X && (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift)))
+            if (e.KeyCode == Keys.X && ModifierKeys.HasFlag(Keys.Shift))
             {
                 OpenScreenGrabber(configuration);
             }
 
-            if (e.KeyCode == Keys.Z && (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift)))
+            if (e.KeyCode == Keys.C && ModifierKeys.HasFlag(Keys.Shift))
             {
                 translator.Run(configuration, output);
             }
 
-            if (e.KeyCode == Keys.C && (ModifierKeys.HasFlag(Keys.Control) && ModifierKeys.HasFlag(Keys.Shift)))
+            if (e.KeyCode == Keys.V && ModifierKeys.HasFlag(Keys.Shift))
             {
                 translator.Abort();
+            }
+
+            if (e.KeyCode == Keys.Z && ModifierKeys.HasFlag(Keys.Shift))
+            {
+                translator.RunOnce(configuration, output);
             }
         }
         
@@ -112,7 +117,7 @@ namespace DesktopApp
             }
         }
 
-        private void RunButton_Click(object sender, EventArgs e)
+        private void KeepRunButton_Click(object sender, EventArgs e)
         {
             translator.Run(configuration, output);
         }
@@ -120,6 +125,11 @@ namespace DesktopApp
         private void StopButton_Click(object sender, EventArgs e)
         {
             translator.Abort();
+        }
+
+        private void RunOnceButton_Click(object sender, EventArgs e)
+        {
+            translator.RunOnce(configuration, output);
         }
     }
 }

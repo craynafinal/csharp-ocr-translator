@@ -1,4 +1,6 @@
-﻿namespace DesktopApp
+﻿using System.Windows.Forms;
+
+namespace DesktopApp
 {
     partial class ScreenGrabber
     {
@@ -44,7 +46,7 @@
             this.Text = "ScreenForm";
             this.TopMost = true;
             this.ResumeLayout(false);
-
+            this.KeyDown += new KeyEventHandler(ScreenGrabberKeyDown);
         }
 
         #endregion

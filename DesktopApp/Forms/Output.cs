@@ -11,7 +11,7 @@ namespace DesktopApp.Forms
 
         public Output(Configuration configuration)
         {
-            InitializeComponent(configuration.OutputX, configuration.OutputY, configuration.OutputWidth, configuration.OutputHeight);
+            InitializeComponent(configuration.OutputX, configuration.OutputY, configuration.OutputWidth, configuration.OutputHeight, configuration.FontSize);
             this.configuration = configuration;
         }
 
@@ -23,6 +23,7 @@ namespace DesktopApp.Forms
                 configuration.OutputHeight = Height;
                 OutputTextBox.Width = Width;
                 OutputTextBox.Height = Height;
+                OutputTextBox.RightMargin = Width - configuration.FontSize;
             }
         }
 
