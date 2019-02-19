@@ -113,9 +113,16 @@ namespace DesktopApp.Forms
 
         private void BrightnessTrackBar_Scroll(object sender, EventArgs e)
         {
-            if (configuration != null) {
+            if (configuration != null)
+            {
                 UpdateBrightnessLabel(BrightnessTrackBar.Value);
                 desktopBitmapData = ImageGrabber.ReadFromDesktop(configuration);
+
+                if (GrayscaleCheckBox.Checked)
+                {
+                    desktopBitmapData.ConvertBitmapToGrayscale();
+                }
+
                 desktopBitmapData.AdjustBitmapBrightness(BrightnessTrackBar.Value);
                 ImagePreview.Image = desktopBitmapData.Bitmap;
                 ImagePreview.Invalidate();
@@ -133,6 +140,12 @@ namespace DesktopApp.Forms
             {
                 UpdateContrastLabel(ContrastTrackBar.Value);
                 desktopBitmapData = ImageGrabber.ReadFromDesktop(configuration);
+
+                if (GrayscaleCheckBox.Checked)
+                {
+                    desktopBitmapData.ConvertBitmapToGrayscale();
+                }
+
                 desktopBitmapData.AdjustBitmapContrast(ContrastTrackBar.Value);
                 ImagePreview.Image = desktopBitmapData.Bitmap;
                 ImagePreview.Invalidate();
